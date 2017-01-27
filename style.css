@@ -1,0 +1,23 @@
+div.grid {
+
+}
+
+div.row {
+    height: 17px;
+}
+
+div.cell {
+    height: 15px;
+    width: 15px;
+    float: left;
+    border: 1px solid black;
+    font-size: 10pt;
+}
+
+.alive {
+    background-color: #33691e;
+}
+
+.dead {
+    background-color: #ef9a9a;
+}
