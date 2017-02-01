@@ -1,9 +1,19 @@
 const size = 100;
+const canvasSize = 100;
 const numberOfColours = 50;
 
 
 const root = document.getElementById('node');
 root.className = "grid";
+
+const canvas = document.getElementById('board');
+canvas.className = "board";
+canvas.height = size;
+canvas.width = size;
+const context = canvas.getContext('2d');
+context.imageSmoothingEnabled= false;
+// context.translate(0.5, 0.5);
+
 
 function makeGradientColor(color1, color2, percent) {
     var newColor = {};
@@ -67,16 +77,16 @@ const safeGet = (grid, x, y) => {
     let actualY;
 
     if (x < 0) {
-        actualX = grid.length - 1;
-    } else if (x === grid.length) {
+        actualX = size - 1;
+    } else if (x === size) {
         actualX = 0;
     } else {
         actualX = x;
     }
 
     if (y < 0) {
-        actualY = grid.length - 1;
-    } else if (y === grid.length) {
+        actualY = size - 1;
+    } else if (y === size) {
         actualY = 0;
     } else {
         actualY = y;
@@ -142,10 +152,10 @@ const createHtml = size => {
 }
 
 const displayGrid = grid => {
-    for(let i = 0; i < grid.length; i++) {
+    for(let i = 0; i < size; i++) {
         const row = grid[i];
         const rowNodes = nodes[i];
-        for(let j = 0; j < grid.length; j++) {
+        for(let j = 0; j < size; j++) {
             const cell = row[j];
             const value = cell.value;
             const age = cell.age < numberOfColours ? cell.age : numberOfColours;
@@ -155,12 +165,48 @@ const displayGrid = grid => {
     }
 }
 
+const displayCanvas = grid => {
+    const renderArray = {};
+    
+    for(let i = 0; i < size; i++) {
+        const row = grid[i];
+        for(let j = 0; j < size; j++) {
+            const cell = row[j];
+            const value = cell.value;
+            const age = cell.age < numberOfColours ? cell.age : numberOfColours - 1;
+            const color = value ? aliveColours[age] : deadColours[age];
+
+            if (!renderArray[color]) {
+                renderArray[color] = [];
+            }
+
+            renderArray[color].push({i, j});
+        }
+    }
+
+    const keys = Object.keys(renderArray);
+
+    for (let x = 0; x < keys.length; x++) {
+        const colour = keys[x];
+        const cells = renderArray[colour];
+        context.fillStyle = colour;
+        for (let y = 0; y < cells.length; y++) {
+            const { i, j } = cells[y];
+            context.fillRect(
+                i/size * canvasSize,
+                j/size * canvasSize,
+                1, 1);
+        }
+    }
+}
+
 let gridA = generateEmptyGrid(size);
 let gridB = generateEmptyGrid(size);
 createHtml(size);
 
 const next = () => {
-    displayGrid(gridA);
+    // displayGrid(gridA);
+    displayCanvas(gridA);
     play(gridA, gridB);
     let tmp = gridA;
     gridA = gridB;
