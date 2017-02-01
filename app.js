@@ -1,18 +1,13 @@
-const size = 100;
-const canvasSize = 100;
+const size = 400;
 const numberOfColours = 50;
-
-
-const root = document.getElementById('node');
-root.className = "grid";
 
 const canvas = document.getElementById('board');
 canvas.className = "board";
 canvas.height = size;
 canvas.width = size;
 const context = canvas.getContext('2d');
-context.imageSmoothingEnabled= false;
-// context.translate(0.5, 0.5);
+context.imageSmoothingEnabled = false;
+const imageData = context.getImageData(0, 0, size, size);
 
 
 function makeGradientColor(color1, color2, percent) {
@@ -46,7 +41,7 @@ const generateColorArray = (c1, c2, length) => {
     const array = [];
 
     for (let i = 0; i < length; i++) {
-        array.push(makeGradientColor(c1, c2, (i/length)*100).cssColor);
+        array.push(makeGradientColor(c1, c2, (i/length)*100));
     }
 
     return array;
@@ -129,40 +124,12 @@ const play = (from, to) => {
     }
 }
 
-const nodes = [];
-
-const createHtml = size => {
-    root.innerHTML = '';
-    for(let i = 0; i < size; i++) {
-        const rowElement = document.createElement('div');
-        rowElement.className = 'row';
-        root.appendChild(rowElement);
-        nodes.push([]);
-        for(let j = 0; j < size; j++) {
-            const cellElement = document.createElement('div');
-            cellElement.className = 'cell';
-            cellElement.onclick = () => {
-                gridA[i][j].value = gridA[i][j].value === 0 ? 1 : 0;
-                gridA[i][j].age = 0;
-            }
-            rowElement.appendChild(cellElement);
-            nodes[i][j] = cellElement;
-        }
-    }
-}
-
-const displayGrid = grid => {
-    for(let i = 0; i < size; i++) {
-        const row = grid[i];
-        const rowNodes = nodes[i];
-        for(let j = 0; j < size; j++) {
-            const cell = row[j];
-            const value = cell.value;
-            const age = cell.age < numberOfColours ? cell.age : numberOfColours;
-            const cellElement = rowNodes[j];
-            cellElement.style.backgroundColor = value ? aliveColours[age] : deadColours[age];
-        }
-    }
+const setPixel = (data, i, j, color) => {
+    const index = (i + j * size) * 4;
+    data.data[index] = color.r;
+    data.data[index + 1] = color.g;
+    data.data[index + 2] = color.b;
+    data.data[index + 3] = 255;
 }
 
 const displayCanvas = grid => {
@@ -176,36 +143,16 @@ const displayCanvas = grid => {
             const age = cell.age < numberOfColours ? cell.age : numberOfColours - 1;
             const color = value ? aliveColours[age] : deadColours[age];
 
-            if (!renderArray[color]) {
-                renderArray[color] = [];
-            }
-
-            renderArray[color].push({i, j});
+            setPixel(imageData, i, j, color);
         }
     }
-
-    const keys = Object.keys(renderArray);
-
-    for (let x = 0; x < keys.length; x++) {
-        const colour = keys[x];
-        const cells = renderArray[colour];
-        context.fillStyle = colour;
-        for (let y = 0; y < cells.length; y++) {
-            const { i, j } = cells[y];
-            context.fillRect(
-                i/size * canvasSize,
-                j/size * canvasSize,
-                1, 1);
-        }
-    }
+    context.putImageData(imageData, 0, 0);
 }
 
 let gridA = generateEmptyGrid(size);
 let gridB = generateEmptyGrid(size);
-createHtml(size);
 
 const next = () => {
-    // displayGrid(gridA);
     displayCanvas(gridA);
     play(gridA, gridB);
     let tmp = gridA;
@@ -214,12 +161,6 @@ const next = () => {
     window.requestAnimationFrame(next);
 }
 
-// setInterval(() => {
-//     next();
-// }, 150);
-
 document.getElementById('btn').onclick = next;
-displayGrid(gridA);
-// displayGrid(grid);
 
 window.requestAnimationFrame(next);
