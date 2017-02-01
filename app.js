@@ -59,15 +59,6 @@ const generateEmptyGrid = size => {
         }
     }
 
-    // grid[3][2] = 1;
-    // grid[3][3] = 1;
-    // grid[3][4] = 1;
-
-    // grid[10][10] = 1;
-    // grid[10][11] = 1;
-    // grid[11][10] = 1;
-    // grid[11][11] = 1;
-
     return grid;
 }
 
@@ -128,12 +119,15 @@ const play = (from, to) => {
     }
 }
 
+const nodes = [];
+
 const createHtml = size => {
     root.innerHTML = '';
     for(let i = 0; i < size; i++) {
         const rowElement = document.createElement('div');
         rowElement.className = 'row';
         root.appendChild(rowElement);
+        nodes.push([]);
         for(let j = 0; j < size; j++) {
             const cellElement = document.createElement('div');
             cellElement.className = 'cell';
@@ -142,6 +136,7 @@ const createHtml = size => {
                 gridA[i][j].age = 0;
             }
             rowElement.appendChild(cellElement);
+            nodes[i][j] = cellElement;
         }
     }
 }
@@ -149,12 +144,12 @@ const createHtml = size => {
 const displayGrid = grid => {
     for(let i = 0; i < grid.length; i++) {
         const row = grid[i];
-        const rowElement = root.childNodes[i];
+        const rowNodes = nodes[i];
         for(let j = 0; j < grid.length; j++) {
             const cell = row[j];
             const value = cell.value;
             const age = cell.age < numberOfColours ? cell.age : numberOfColours;
-            const cellElement = rowElement.childNodes[j];
+            const cellElement = rowNodes[j];
             cellElement.style.backgroundColor = value ? aliveColours[age] : deadColours[age];
         }
     }
