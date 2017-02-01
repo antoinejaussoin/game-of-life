@@ -3,15 +3,18 @@ div.grid {
 }
 
 div.row {
-    height: 17px;
+    display: flex;
+    justify-content: space-around;
 }
 
 div.cell {
-    height: 15px;
-    width: 15px;
-    float: left;
-    border: 1px solid black;
-    font-size: 10pt;
+    flex: 1 0 auto;
+}
+
+div.cell:before {
+    content:'';
+    float:left;
+    padding-top:100%;
 }
 
 .alive {
