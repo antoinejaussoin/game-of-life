@@ -170,12 +170,15 @@ const next = () => {
     let tmp = gridA;
     gridA = gridB;
     gridB = tmp;
+    window.requestAnimationFrame(next);
 }
 
-setInterval(() => {
-    next();
-}, 150);
+// setInterval(() => {
+//     next();
+// }, 150);
 
 document.getElementById('btn').onclick = next;
 displayGrid(gridA);
 // displayGrid(grid);
+
+window.requestAnimationFrame(next);
