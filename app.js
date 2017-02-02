@@ -1,5 +1,5 @@
-const size = 400;
-const numberOfColours = 50;
+const size = 1000;
+const numberOfColours = 500;
 
 const canvas = document.getElementById('board');
 canvas.className = "board";
@@ -48,7 +48,7 @@ const generateColorArray = (c1, c2, length) => {
 }
 
 const deadColours = generateColorArray({ r: 127, g: 0, b: 0}, { r: 255, g: 221, b: 221 }, numberOfColours);
-const aliveColours = generateColorArray({ r: 0, g: 127, b: 14}, { r: 231, g: 255, b: 221 }, numberOfColours);
+const aliveColours = generateColorArray({ r: 0, g: 127, b: 14}, { r: 201, g: 252, b: 210 }, numberOfColours);
 
 const generateEmptyGrid = size => {
     const grid = [];
@@ -90,7 +90,7 @@ const safeGet = (grid, x, y) => {
     return grid[actualX][actualY].value;
 }
 
-const getScore = (grid, x, y) => {
+const getScoreSafe = (grid, x, y) => {
     return safeGet(grid, x, y + 1) +
         safeGet(grid, x, y - 1) +
         safeGet(grid, x + 1, y) +
@@ -101,11 +101,20 @@ const getScore = (grid, x, y) => {
         safeGet(grid, x - 1, y - 1);
 }
 
-const getNextValue = (grid, x, y) => {
-    const score = getScore(grid, x, y);
-    if (score < 2) {
-        return 0;
-    } else if (score > 3) {
+const getScore = (grid, x, y) => {
+    return grid[x][y + 1].value +
+        grid[x][y - 1].value +
+        grid[x + 1][y].value +
+        grid[x - 1][y].value +
+        grid[x + 1][y + 1].value +
+        grid[x + 1][y - 1].value +
+        grid[x - 1][y + 1].value +
+        grid[x - 1][y - 1].value;
+}
+
+const getNextValue = (grid, x, y, getScoreFn) => {
+    const score = getScoreFn(grid, x, y);
+    if (score < 2 || score > 3) {
         return 0;
     } else if (score === 3) {
         return 1;
@@ -115,13 +124,42 @@ const getNextValue = (grid, x, y) => {
 }
 
 const play = (from, to) => {
-    for(let i = 0; i < from.length; i++) {
-        for(let j = 0; j < from.length; j++) {
-            const next = getNextValue(from, i, j);
+    for(let i = 1; i < size - 1; i++) {
+        for(let j = 1; j < size - 1; j++) {
+            const next = getNextValue(from, i, j, getScore);
             to[i][j].age = from[i][j].value === next ? from[i][j].age + 1 : 0;
             to[i][j].value = next;
         }
     }
+
+    for(let i = 0; i < size; i++) {
+        const j = 0;
+        const next = getNextValue(from, i, 0, getScoreSafe);
+        to[i][0].age = from[i][0].value === next ? from[i][0].age + 1 : 0;
+        to[i][0].value = next;
+    }
+
+    for(let i = 0; i < size; i++) {
+        const j = size - 1;
+        const next = getNextValue(from, i, j, getScoreSafe);
+        to[i][j].age = from[i][j].value === next ? from[i][j].age + 1 : 0;
+        to[i][j].value = next;
+    }
+
+    for(let j = 1; j < size - 1; j++) {
+        const i = 0;
+        const next = getNextValue(from, i, j, getScoreSafe);
+        to[i][j].age = from[i][j].value === next ? from[i][j].age + 1 : 0;
+        to[i][j].value = next;
+    }
+
+    for(let j = 1; j < size - 1; j++) {
+        const i = size - 1;
+        const next = getNextValue(from, i, j, getScoreSafe);
+        to[i][j].age = from[i][j].value === next ? from[i][j].age + 1 : 0;
+        to[i][j].value = next;
+    }
+    
 }
 
 const setPixel = (data, i, j, color) => {
@@ -163,4 +201,4 @@ const next = () => {
 
 document.getElementById('btn').onclick = next;
 
-window.requestAnimationFrame(next);
+//window.requestAnimationFrame(next);
