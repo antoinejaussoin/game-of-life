@@ -4,29 +4,7 @@ div.grid {
 
 canvas.board {
     border: 3px solid black;
+    image-rendering: pixelated;
     height: 100%;
     width: 100%;
-}
-
-div.row {
-    display: flex;
-    justify-content: space-around;
-}
-
-div.cell {
-    flex: 1 0 auto;
-}
-
-div.cell:before {
-    content:'';
-    float:left;
-    padding-top:100%;
-}
-
-.alive {
-    background-color: #33691e;
-}
-
-.dead {
-    background-color: #ef9a9a;
 }

@@ -1,5 +1,5 @@
 const size = 1000;
-const numberOfColours = 500;
+const numberOfColours = 1000;
 
 const canvas = document.getElementById('board');
 canvas.className = "board";
@@ -9,6 +9,9 @@ const context = canvas.getContext('2d');
 context.imageSmoothingEnabled = false;
 const imageData = context.getImageData(0, 0, size, size);
 
+canvas.addEventListener('click', event => {
+    console.log('Event: ', event);
+});
 
 function makeGradientColor(color1, color2, percent) {
     var newColor = {};
@@ -31,9 +34,9 @@ function makeGradientColor(color1, color2, percent) {
     newColor.g = makeChannel(color1.g, color2.g);
     newColor.b = makeChannel(color1.b, color2.b);
     newColor.cssColor = "#" + 
-                        makeColorPiece(newColor.r) + 
-                        makeColorPiece(newColor.g) + 
-                        makeColorPiece(newColor.b);
+        makeColorPiece(newColor.r) + 
+        makeColorPiece(newColor.g) + 
+        makeColorPiece(newColor.b);
     return(newColor);
 }
 
@@ -49,6 +52,8 @@ const generateColorArray = (c1, c2, length) => {
 
 const deadColours = generateColorArray({ r: 127, g: 0, b: 0}, { r: 255, g: 221, b: 221 }, numberOfColours);
 const aliveColours = generateColorArray({ r: 0, g: 127, b: 14}, { r: 201, g: 252, b: 210 }, numberOfColours);
+const oscilatingAlive = { r: 201, g: 252, b: 210 };
+const oscilatingDead = { r: 255, g: 221, b: 221 };
 
 const generateEmptyGrid = size => {
     const grid = [];
@@ -123,41 +128,43 @@ const getNextValue = (grid, x, y, getScoreFn) => {
     }
 }
 
+const update = (from, to, i, j, next) => {
+    const age = from[i][j].value === next ? from[i][j].age + 1 : 0;
+    to[i][j].age = age;
+    to[i][j].osc = age === 0 ? from[i][j].osc + 1 : 0;
+    to[i][j].value = next;
+};
+
 const play = (from, to) => {
     for(let i = 1; i < size - 1; i++) {
         for(let j = 1; j < size - 1; j++) {
             const next = getNextValue(from, i, j, getScore);
-            to[i][j].age = from[i][j].value === next ? from[i][j].age + 1 : 0;
-            to[i][j].value = next;
+            update(from, to, i, j, next);
         }
     }
 
     for(let i = 0; i < size; i++) {
         const j = 0;
         const next = getNextValue(from, i, 0, getScoreSafe);
-        to[i][0].age = from[i][0].value === next ? from[i][0].age + 1 : 0;
-        to[i][0].value = next;
+        update(from, to, i, j, next);
     }
 
     for(let i = 0; i < size; i++) {
         const j = size - 1;
         const next = getNextValue(from, i, j, getScoreSafe);
-        to[i][j].age = from[i][j].value === next ? from[i][j].age + 1 : 0;
-        to[i][j].value = next;
+        update(from, to, i, j, next);
     }
 
     for(let j = 1; j < size - 1; j++) {
         const i = 0;
         const next = getNextValue(from, i, j, getScoreSafe);
-        to[i][j].age = from[i][j].value === next ? from[i][j].age + 1 : 0;
-        to[i][j].value = next;
+        update(from, to, i, j, next);
     }
 
     for(let j = 1; j < size - 1; j++) {
         const i = size - 1;
         const next = getNextValue(from, i, j, getScoreSafe);
-        to[i][j].age = from[i][j].value === next ? from[i][j].age + 1 : 0;
-        to[i][j].value = next;
+        update(from, to, i, j, next);
     }
     
 }
@@ -178,7 +185,11 @@ const displayCanvas = grid => {
         for(let j = 0; j < size; j++) {
             const cell = row[j];
             const value = cell.value;
-            const age = cell.age < numberOfColours ? cell.age : numberOfColours - 1;
+            const isOscillating = cell.osc > 10;
+            const age = 
+                isOscillating ?
+                    (cell.osc < numberOfColours ? cell.osc : numberOfColours - 1) :
+                    (cell.age < numberOfColours ? cell.age : numberOfColours - 1);
             const color = value ? aliveColours[age] : deadColours[age];
 
             setPixel(imageData, i, j, color);
