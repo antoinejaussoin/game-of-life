@@ -2,6 +2,9 @@ const size = 1000;
 const numberOfColours = 1000;
 
 const canvas = document.getElementById('board');
+const generationLabel = document.getElementById('generation');
+let gen = 0;
+
 canvas.className = "board";
 canvas.height = size;
 canvas.width = size;
@@ -166,7 +169,7 @@ const play = (from, to) => {
         const next = getNextValue(from, i, j, getScoreSafe);
         update(from, to, i, j, next);
     }
-    
+    gen++;
 }
 
 const setPixel = (data, i, j, color) => {
@@ -198,12 +201,17 @@ const displayCanvas = grid => {
     context.putImageData(imageData, 0, 0);
 }
 
+const updateGenerationLabel = () => {
+    generationLabel.innerText = gen;
+}
+
 let gridA = generateEmptyGrid(size);
 let gridB = generateEmptyGrid(size);
 
 const next = () => {
     displayCanvas(gridA);
     play(gridA, gridB);
+    updateGenerationLabel();
     let tmp = gridA;
     gridA = gridB;
     gridB = tmp;
