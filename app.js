@@ -1,3 +1,18 @@
+(function(){
+    var script=document.createElement('script');
+    script.onload=function(){
+        var stats=new Stats();
+        const counterDiv = document.getElementById('counter');
+        counterDiv.appendChild(stats.dom);
+        stats.dom.style.position = 'relative';
+		stats.dom.style.float = 'right';
+        requestAnimationFrame(function loop(){
+            stats.update();
+            requestAnimationFrame(loop)});
+    };
+    script.src='//rawgit.com/mrdoob/stats.js/master/build/stats.min.js';document.head.appendChild(script);
+})();
+
 const size = 1000;
 const numberOfColours = 1000;
 

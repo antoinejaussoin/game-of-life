@@ -28,4 +28,6 @@ div.header button {
 
 div.header p {
     margin-left: 10px;
+    flex: 1;
+    margin-right: 20px;
 }
