@@ -91,26 +91,7 @@ const generateEmptyGrid = size => {
 }
 
 const safeGet = (grid, x, y) => {
-    let actualX;
-    let actualY;
-
-    if (x < 0) {
-        actualX = size - 1;
-    } else if (x === size) {
-        actualX = 0;
-    } else {
-        actualX = x;
-    }
-
-    if (y < 0) {
-        actualY = size - 1;
-    } else if (y === size) {
-        actualY = 0;
-    } else {
-        actualY = y;
-    }
-
-    return grid[actualX][actualY].value;
+    return grid[(x + size) % size][(y + size) % size].value;
 }
 
 const getScoreSafe = (grid, x, y) => {
