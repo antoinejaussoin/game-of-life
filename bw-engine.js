@@ -1,16 +1,12 @@
 const numberOfColours = 1000;
 
-export default class ColorEngine {
+export default class BlackAndWhiteEngine {
   constructor(size, canvas) {
     this.size = size;
     if (canvas) {
       const context = canvas.getContext('2d');
       this._imageData = context.getImageData(0, 0, size, size);
     }
-    this._deadColours = this._generateColorArray({ r: 127, g: 0, b: 0}, { r: 255, g: 221, b: 221 }, numberOfColours);
-    this._aliveColours = this._generateColorArray({ r: 0, g: 127, b: 14}, { r: 201, g: 252, b: 210 }, numberOfColours);
-    this._oscilatingAlive = { r: 201, g: 252, b: 210 };
-    this._oscilatingDead = { r: 255, g: 221, b: 221 };
     this.init();
   }
   
@@ -21,10 +17,7 @@ export default class ColorEngine {
       const row = [];
       grid.push(row);
       for(let j = 0; j < this.size; j++) {
-        row.push({
-          value: Math.random() > 0.8 ? 1 : 0,
-          age: 0
-        });
+        row.push(Math.random() > 0.6 ? 1 : 0);
       }
     }
     
@@ -38,7 +31,7 @@ export default class ColorEngine {
   }
   
   _safeGet(grid, x, y) {
-    return grid[(x + this.size) % this.size][(y + this.size) % this.size].value;
+    return grid[(x + this.size) % this.size][(y + this.size) % this.size];
   }
   
   _getScoreSafe(grid, x, y) {
@@ -53,14 +46,14 @@ export default class ColorEngine {
   }
   
   _getScore(grid, x, y) {
-    return grid[x][y + 1].value +
-    grid[x][y - 1].value +
-    grid[x + 1][y].value +
-    grid[x - 1][y].value +
-    grid[x + 1][y + 1].value +
-    grid[x + 1][y - 1].value +
-    grid[x - 1][y + 1].value +
-    grid[x - 1][y - 1].value;
+    return grid[x][y + 1] +
+    grid[x][y - 1] +
+    grid[x + 1][y] +
+    grid[x - 1][y] +
+    grid[x + 1][y + 1] +
+    grid[x + 1][y - 1] +
+    grid[x - 1][y + 1] +
+    grid[x - 1][y - 1];
   }
   
   _getNextValue(grid, x, y, getScoreFn) {
@@ -70,15 +63,12 @@ export default class ColorEngine {
     } else if (score === 3) {
       return 1;
     } else {
-      return grid[x][y].value;
+      return grid[x][y];
     }
   }
   
   _update(from, to, i, j, next) {
-    const age = from[i][j].value === next ? from[i][j].age + 1 : 0;
-    to[i][j].age = age;
-    to[i][j].osc = age === 0 ? from[i][j].osc + 1 : 0;
-    to[i][j].value = next;
+    to[i][j] = next;
   }
   
   play() {
@@ -122,47 +112,10 @@ export default class ColorEngine {
   
   _setPixel(data, i, j, color) {
     const index = (i + j * this.size) * 4;
-    data.data[index] = color.r;
-    data.data[index + 1] = color.g;
-    data.data[index + 2] = color.b;
+    data.data[index] = color[0];
+    data.data[index + 1] = color[1];
+    data.data[index + 2] = color[2];
     data.data[index + 3] = 255;
-  }
-  
-  _makeGradientColor(color1, color2, percent) {
-    var newColor = {};
-    
-    function makeChannel(a, b) {
-      return(a + Math.round((b-a)*(percent/100)));
-    }
-    
-    function makeColorPiece(num) {
-      num = Math.min(num, 255);   // not more than 255
-      num = Math.max(num, 0);     // not less than 0
-      var str = num.toString(16);
-      if (str.length < 2) {
-        str = "0" + str;
-      }
-      return(str);
-    }
-    
-    newColor.r = makeChannel(color1.r, color2.r);
-    newColor.g = makeChannel(color1.g, color2.g);
-    newColor.b = makeChannel(color1.b, color2.b);
-    newColor.cssColor = "#" + 
-    makeColorPiece(newColor.r) + 
-    makeColorPiece(newColor.g) + 
-    makeColorPiece(newColor.b);
-    return(newColor);
-  }
-  
-  _generateColorArray(c1, c2, length) {
-    const array = [];
-    
-    for (let i = 0; i < length; i++) {
-      array.push(this._makeGradientColor(c1, c2, (i/length)*100));
-    }
-    
-    return array;
   }
   
   get canvasArray() {
@@ -170,13 +123,7 @@ export default class ColorEngine {
       const row = this._gridA[i];
       for(let j = 0; j < this.size; j++) {
         const cell = row[j];
-        const value = cell.value;
-        const isOscillating = cell.osc > 10;
-        const age = 
-        isOscillating ?
-        (cell.osc < numberOfColours ? cell.osc : numberOfColours - 1) :
-        (cell.age < numberOfColours ? cell.age : numberOfColours - 1);
-        const color = value ? this._aliveColours[age] : this._deadColours[age];
+        const color = cell ? [255, 255, 255] : [0, 0, 0];
         
         this._setPixel(this._imageData, i, j, color);
       }

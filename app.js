@@ -1,4 +1,4 @@
-import ColorEngine from './color-engine';
+import ColorEngine from './bw-engine';
 
 (function(){
     var script=document.createElement('script');

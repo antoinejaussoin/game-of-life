@@ -1,7 +1,7 @@
-import ColorEngine from './color-engine';
+import ColorEngine from './bw-engine';
 import moment from 'moment';
 
-const engine = new ColorEngine(1000, null);
+const engine = new ColorEngine(1000, { data: [] });
 
 const gen = 100;
 const start = moment();
