@@ -1,0 +1,23 @@
+{
+  "name": "game-of-life",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/antoinejaussoin/game-of-life.git"
+  },
+  "author": "Antoine Jaussoin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/antoinejaussoin/game-of-life/issues"
+  },
+  "homepage": "https://github.com/antoinejaussoin/game-of-life#readme",
+  "dependencies": {
+    "moment": "^2.20.1",
+    "rollup": "^0.55.1"
+  }
+}
