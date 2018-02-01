@@ -1,5 +1,3 @@
-const numberOfColours = 1000;
-
 export default class BlackAndWhiteEngine {
   constructor(size, imageData) {
     this.size = size;

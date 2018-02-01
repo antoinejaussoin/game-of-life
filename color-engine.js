@@ -8,10 +8,9 @@ export default class ColorEngine {
     this._aliveColours = this._generateColorArray({ r: 0, g: 127, b: 14}, { r: 201, g: 252, b: 210 }, numberOfColours);
     this._oscilatingAlive = { r: 201, g: 252, b: 210 };
     this._oscilatingDead = { r: 255, g: 221, b: 221 };
-    this.init();
   }
   
-  _generateEmptyGrid() {
+  _generateEmptyGrid(percentageAlive) {
     const grid = [];
     
     for(let i = 0; i < this.size; i++) {
@@ -19,7 +18,7 @@ export default class ColorEngine {
       grid.push(row);
       for(let j = 0; j < this.size; j++) {
         row.push({
-          value: Math.random() > 0.8 ? 1 : 0,
+          value: Math.random() > (100 - percentageAlive)/100 ? 1 : 0,
           age: 0
         });
       }
@@ -27,11 +26,24 @@ export default class ColorEngine {
     
     return grid;
   }
-  
-  init() {
-    this._gridA = this._generateEmptyGrid();
-    this._gridB = this._generateEmptyGrid();
+ 
+  initToRandom(percentageAlive) {
+    this._gridA = this._generateEmptyGrid(percentageAlive);
+    this._gridB = this._generateEmptyGrid(0);
     this.generation = 0;
+  }
+
+  initToBlank() {
+    this.initToRandom(0);
+  }
+
+  inject(x, y, shape) {
+    for(let i = 0; i < shape.length; i++) {
+      const row = shape[i];
+      for(let j = 0; j < row.length; j++) {
+        this._gridA[j + x][i + y].value = shape[i][j];
+      }
+    }
   }
   
   _safeGet(grid, x, y) {
