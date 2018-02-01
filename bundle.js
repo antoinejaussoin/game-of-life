@@ -33,10 +33,10 @@ class BlackAndWhiteEngine {
   }
 
   inject(x, y, shape) {
-    for(let i = 0; i < this.shape.length; i++) {
-      const row = this.shape[i];
+    for(let i = 0; i < shape.length; i++) {
+      const row = shape[i];
       for(let j = 0; j < row.length; j++) {
-        this._gridA[i + x][j + y] = shape[i][j];
+        this._gridA[j + x][i + y] = shape[i][j];
       }
     }
   }
@@ -133,39 +133,82 @@ class BlackAndWhiteEngine {
   }
 }
 
+const blank = (width, height) => {
+  const grid = [];
+
+  for(let i = 0; i < height; i++) {
+    const row = [];
+    grid.push(row);
+    for(let j = 0; j < width; j++) {
+      row.push(0);
+    }
+  }
+  
+  return grid;
+};
+
 (function(){
-    var script=document.createElement('script');
-    script.onload=function(){
-        var stats=new Stats();
-        const counterDiv = document.getElementById('counter');
-        counterDiv.appendChild(stats.dom);
-        stats.dom.style.position = 'relative';
-		stats.dom.style.float = 'right';
-        requestAnimationFrame(function loop(){
-            stats.update();
-            requestAnimationFrame(loop);});
-    };
-    script.src='//rawgit.com/mrdoob/stats.js/master/build/stats.min.js';document.head.appendChild(script);
+  var script=document.createElement('script');
+  script.onload=function(){
+      var stats=new Stats();
+      const counterDiv = document.getElementById('counter');
+      counterDiv.appendChild(stats.dom);
+      stats.dom.style.position = 'relative';
+  stats.dom.style.float = 'right';
+      requestAnimationFrame(function loop(){
+          stats.update();
+          requestAnimationFrame(loop);});
+  };
+  script.src='//rawgit.com/mrdoob/stats.js/master/build/stats.min.js';document.head.appendChild(script);
 })();
+
+function relMouseCoords(event){
+  var totalOffsetX = 0;
+  var totalOffsetY = 0;
+  var canvasX = 0;
+  var canvasY = 0;
+  var currentElement = this;
+
+  do {
+      totalOffsetX += currentElement.offsetLeft;
+      totalOffsetY += currentElement.offsetTop;
+  }
+  while (currentElement = currentElement.offsetParent)
+
+  canvasX = event.pageX - totalOffsetX;
+  canvasY = event.pageY - totalOffsetY;
+
+  // Fix for variable canvas width
+  canvasX = Math.round( canvasX * (this.width / this.offsetWidth) );
+  canvasY = Math.round( canvasY * (this.height / this.offsetHeight) );
+
+  return {x:canvasX, y:canvasY}
+}
+HTMLCanvasElement.prototype.relMouseCoords = relMouseCoords;
+
 const size = 1000;
+
+// HTML stuff
 const canvas = document.getElementById('board');
 const context = canvas.getContext('2d');
 context.imageSmoothingEnabled = false;
 const imageData = context.getImageData(0, 0, size, size);
-
-const engine = new BlackAndWhiteEngine(size, imageData);
-engine.initToBlank();
-
-
 const generationLabel = document.getElementById('generation');
 canvas.className = "board";
 canvas.height = size;
 canvas.width = size;
 
+// Engine
+const engine = new BlackAndWhiteEngine(size, imageData);
+engine.initToRandom(100);
+engine.inject(300, 300, blank(400, 400));
+
 canvas.addEventListener('click', event => {
     console.log('Event: ', event);
+    const cooords = canvas.relMouseCoords(event);
+    engine.inject(cooords.x, cooords.y, blank(100, 100));
+    displayCanvas();
 });
-
 
 const displayCanvas = () => {
     engine.draw();

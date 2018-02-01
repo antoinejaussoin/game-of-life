@@ -1,38 +1,31 @@
 import ColorEngine from './bw-engine';
+import { gosperGliderGun, blockLayingSwitch, addMargins, blank } from './shapes';
+import './utils';
 
-(function(){
-    var script=document.createElement('script');
-    script.onload=function(){
-        var stats=new Stats();
-        const counterDiv = document.getElementById('counter');
-        counterDiv.appendChild(stats.dom);
-        stats.dom.style.position = 'relative';
-		stats.dom.style.float = 'right';
-        requestAnimationFrame(function loop(){
-            stats.update();
-            requestAnimationFrame(loop)});
-    };
-    script.src='//rawgit.com/mrdoob/stats.js/master/build/stats.min.js';document.head.appendChild(script);
-})();
 const size = 1000;
+
+// HTML stuff
 const canvas = document.getElementById('board');
 const context = canvas.getContext('2d');
 context.imageSmoothingEnabled = false;
 const imageData = context.getImageData(0, 0, size, size);
-
-const engine = new ColorEngine(size, imageData);
-engine.initToBlank();
-
-
 const generationLabel = document.getElementById('generation');
 canvas.className = "board";
 canvas.height = size;
 canvas.width = size;
 
+// Engine
+const margin = addMargins(50);
+const engine = new ColorEngine(size, imageData);
+engine.initToRandom(100);
+engine.inject(300, 300, blank(400, 400));
+
 canvas.addEventListener('click', event => {
     console.log('Event: ', event);
+    const cooords = canvas.relMouseCoords(event);
+    engine.inject(cooords.x, cooords.y, blank(100, 100));
+    displayCanvas();
 });
-
 
 const displayCanvas = () => {
     engine.draw();

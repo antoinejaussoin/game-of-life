@@ -33,10 +33,10 @@ export default class BlackAndWhiteEngine {
   }
 
   inject(x, y, shape) {
-    for(let i = 0; i < this.shape.length; i++) {
-      const row = this.shape[i];
+    for(let i = 0; i < shape.length; i++) {
+      const row = shape[i];
       for(let j = 0; j < row.length; j++) {
-        this._gridA[i + x][j + y] = shape[i][j];
+        this._gridA[j + x][i + y] = shape[i][j];
       }
     }
   }
