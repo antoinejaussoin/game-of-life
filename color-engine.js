@@ -1,12 +1,9 @@
 const numberOfColours = 1000;
 
 export default class ColorEngine {
-  constructor(size, canvas) {
+  constructor(size, imageData) {
     this.size = size;
-    if (canvas) {
-      const context = canvas.getContext('2d');
-      this._imageData = context.getImageData(0, 0, size, size);
-    }
+    this._imageData = imageData || [];
     this._deadColours = this._generateColorArray({ r: 127, g: 0, b: 0}, { r: 255, g: 221, b: 221 }, numberOfColours);
     this._aliveColours = this._generateColorArray({ r: 0, g: 127, b: 14}, { r: 201, g: 252, b: 210 }, numberOfColours);
     this._oscilatingAlive = { r: 201, g: 252, b: 210 };
@@ -165,7 +162,7 @@ export default class ColorEngine {
     return array;
   }
   
-  get canvasArray() {
+  draw() {
     for(let i = 0; i < this.size; i++) {
       const row = this._gridA[i];
       for(let j = 0; j < this.size; j++) {
@@ -181,6 +178,5 @@ export default class ColorEngine {
         this._setPixel(this._imageData, i, j, color);
       }
     }
-    return this._imageData;
   }
 }

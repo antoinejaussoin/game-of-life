@@ -16,15 +16,18 @@ import ColorEngine from './bw-engine';
 })();
 const size = 1000;
 const canvas = document.getElementById('board');
-const engine = new ColorEngine(size, canvas);
+const context = canvas.getContext('2d');
+context.imageSmoothingEnabled = false;
+const imageData = context.getImageData(0, 0, size, size);
+
+const engine = new ColorEngine(size, imageData);
+engine.initToBlank();
+
 
 const generationLabel = document.getElementById('generation');
 canvas.className = "board";
 canvas.height = size;
 canvas.width = size;
-
-const context = canvas.getContext('2d');
-context.imageSmoothingEnabled = false;
 
 canvas.addEventListener('click', event => {
     console.log('Event: ', event);
@@ -32,12 +35,15 @@ canvas.addEventListener('click', event => {
 
 
 const displayCanvas = () => {
-    context.putImageData(engine.canvasArray, 0, 0);
+    engine.draw();
+    context.putImageData(imageData, 0, 0);
 }
 
 const updateGenerationLabel = () => {
     generationLabel.innerText = engine.generation;
 }
+
+displayCanvas();
 
 const next = () => {
     displayCanvas();
@@ -47,5 +53,3 @@ const next = () => {
 }
 
 document.getElementById('btn').onclick = next;
-
-//window.requestAnimationFrame(next);
