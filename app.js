@@ -18,7 +18,7 @@ canvas.width = size;
 const margin = addMargins(50);
 const engine = new ColorEngine(size, imageData);
 engine.initToRandom(100);
-engine.inject(300, 300, blank(400, 400));
+engine.inject(1, 1, blank(998, 998));
 
 canvas.addEventListener('click', event => {
     console.log('Event: ', event);
