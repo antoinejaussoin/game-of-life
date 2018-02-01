@@ -1,4 +1,4 @@
-import Engine from './color-engine';
+import Engine from './bw-engine';
 
 describe('When initialising a new engine to blank', () => {
     const engine = new Engine(10);
