@@ -7,13 +7,13 @@ export default class BlackAndWhiteEngine {
   }
   
   _generateEmptyGrid(percentageAlive) {
-    const grid = [];
+    const grid = new Array(this.size);
     
     for(let i = 0; i < this.size; i++) {
-      const row = [];
-      grid.push(row);
+      const row = new Array(this.size);
+      grid[i] = row;
       for(let j = 0; j < this.size; j++) {
-        row.push(Math.random() > (100 - percentageAlive)/100 ? 1 : 0);
+        row[j] = Math.random() > (100 - percentageAlive)/100 ? 1 : 0;
       }
     }
     
@@ -103,9 +103,9 @@ export default class BlackAndWhiteEngine {
       const i = size - 1;
       this._gridB[i][j] = this._getNextValue(this._gridA, i, j, this._getScoreSafe);
     }
-    let tmp = this._gridA;
+    this._tmp = this._gridA;
     this._gridA = this._gridB;
-    this._gridB = tmp;
+    this._gridB = this._tmp;
     this.generation++;
   }
   

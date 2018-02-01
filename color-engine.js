@@ -11,16 +11,16 @@ export default class ColorEngine {
   }
   
   _generateEmptyGrid(percentageAlive) {
-    const grid = [];
+    const grid = new Array(this.size);
     
     for(let i = 0; i < this.size; i++) {
-      const row = [];
-      grid.push(row);
+      const row = new Array(this.size);
+      grid[i] = row;
       for(let j = 0; j < this.size; j++) {
-        row.push({
+        row[j] = {
           value: Math.random() > (100 - percentageAlive)/100 ? 1 : 0,
           age: 0
-        });
+        };
       }
     }
     

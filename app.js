@@ -1,4 +1,4 @@
-import ColorEngine from './color-engine';
+import ColorEngine from './bw-engine';
 import { gosperGliderGun, blockLayingSwitch, addMargins, blank } from './shapes';
 import './utils';
 
