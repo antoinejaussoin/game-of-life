@@ -129,4 +129,8 @@ export default class BlackAndWhiteEngine {
       }
     }
   }
+
+  toArray() {
+    return this._gridA;
+  }
 }

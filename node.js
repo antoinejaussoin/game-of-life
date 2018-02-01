@@ -1,4 +1,4 @@
-import ColorEngine from './color-engine';
+import ColorEngine from './bw-engine';
 import moment from 'moment';
 
 const array = { data: new Uint8ClampedArray() };

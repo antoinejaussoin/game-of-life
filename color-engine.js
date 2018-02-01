@@ -191,4 +191,8 @@ export default class ColorEngine {
       }
     }
   }
+
+  toArray() {
+    return this._gridA.map(row => row.map(cell => cell.value));
+  }
 }
