@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "babel-preset-env": "^1.6.1",
+    "emotion": "^8.0.12",
     "jest": "^22.1.4",
     "lodash": "^4.17.4",
     "mobx": "^3.4.1",
@@ -30,6 +31,7 @@
     "react-app-rewire-mobx": "^1.0.7",
     "react-app-rewired": "^1.4.1",
     "react-dom": "^16.2.0",
+    "react-emotion": "^8.0.12",
     "react-scripts": "1.1.0",
     "react-stats-zavatta": "^0.0.6"
   }

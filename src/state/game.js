@@ -4,9 +4,11 @@ import { highLife } from '../engines/variations';
 
 export default class Game {
   @observable running = false;
+  @observable size = 1000;
+  @observable engine = null;
 
   constructor() {
-    this._engine = new Engine(1000, highLife);
+    this.changeSize(this.size);
   }
 
   @action start() {
@@ -17,7 +19,10 @@ export default class Game {
     this.running = false;
   }
 
-  @computed get engine() {
-    return this._engine;
+  @action changeSize(size) {
+    this.size = size;
+    this.stop();
+    this.engine = new Engine(this.size);
+    this.engine.initToRandom(6);
   }
 }

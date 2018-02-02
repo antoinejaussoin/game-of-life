@@ -1,9 +1,19 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
 import Canvas from './components/Canvas';
 import FPSStats from 'react-stats-zavatta';
+import Button from './components/button';
+import Slider from './components/slider';
 import { observer } from 'mobx-react';
+import { css } from 'emotion';
+
+const header = css`
+  display: flex;
+  align-items: center;
+
+  > * {
+    margin-right: 20px;
+  }
+`;
 
 @observer
 class App extends Component {
@@ -12,9 +22,13 @@ class App extends Component {
     return (
       <div>
         
-        <button onClick={() => game.running ? game.stop() : game.start()}>{game.running ? 'Stop': 'Start'}</button>
+        <div className={header}>
+          <Button bsStyle="primary" bsSize="large" onClick={() => game.running ? game.stop() : game.start()}>{game.running ? 'Stop': 'Start'}</Button>
+          <Slider min={10} max={2000} value={game.size} onChange={v => game.changeSize(v)} />
+          <div>{game.size}x{game.size}</div>
+          <FPSStats isActive={true} right={1} />
+        </div>
         <Canvas engine={game.engine} running={game.running} />
-        <FPSStats isActive={true} right />
       </div>
     );
   }

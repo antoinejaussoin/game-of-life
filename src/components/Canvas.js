@@ -12,19 +12,34 @@ class Canvas extends Component {
     context.imageSmoothingEnabled = false;
     canvas.height = size;
     canvas.width = size;
-    const imageData = context.getImageData(0, 0, size, size);
-    engine.initToRandom(6);
+    this.imageData = context.getImageData(0, 0, size, size);
+    //const imageData = context.getImageData(0, 0, size, size);
 
     const next = () => {
+      const engine = this.props.engine;
+      console.log('size: ', engine.size);
       if (this.props.running) {
-        engine.draw(imageData);
-        context.putImageData(imageData, 0, 0);
+        engine.draw(this.imageData);
+        context.putImageData(this.imageData, 0, 0);
         engine.play();
       }
       window.requestAnimationFrame(next);
     };
 
     next();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.engine !== nextProps.engine) {
+      const engine = nextProps.engine;
+      const canvas = this.canvas;
+      const size = engine.size;
+      const context = canvas.getContext('2d');
+      context.imageSmoothingEnabled = false;
+      canvas.height = size;
+      canvas.width = size;
+      this.imageData = context.getImageData(0, 0, size, size);
+    }
   }
 
   render() {

@@ -8,7 +8,7 @@ canvas.board {
     top: 0; right: 10px; bottom: 10px; left: 0;
     width: 100%;
     display: flex;
-    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.17);
+    box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.17);
     border: 1px solid rgba(0,0,0,0.17);
 }
 
