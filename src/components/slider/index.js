@@ -6,7 +6,6 @@ const containerStyle = css`
   flex-direction: column;
 `;
 
-
 const Slider = ({ label = '', min = 0, max = 100, value = 0, step = 1, onChange }) => (
   <div className={containerStyle}>
     <label>{label} {value}</label>

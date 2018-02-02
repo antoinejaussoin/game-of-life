@@ -1,5 +1,7 @@
 import { observable, computed, action } from 'mobx';
-import Engine from '../engines/bw-engine';
+import find from 'lodash/find';
+import BlackAndWhiteEngine from '../engines/bw-engine';
+import ColorEngine from '../engines/color-engine';
 import { highLife } from '../engines/variations';
 
 export default class Game {
@@ -7,6 +9,7 @@ export default class Game {
   @observable size = 1000;
   @observable fill = 50;
   @observable engine = null;
+  @observable engineType = BlackAndWhiteEngine;
 
   constructor() {
     this.changeSize(this.size);
@@ -21,16 +24,34 @@ export default class Game {
   }
 
   @action changeSize(size) {
-    this.stop();
     this.size = size;
-    this.engine = new Engine(this.size);
-    this.engine.initToRandom(this.fill);
+    this.reset();
   }
 
   @action changeFill(fill) {
-    this.stop();
     this.fill = fill;
-    this.engine = new Engine(this.size);
+    this.reset();
+  }
+
+  @action reset() {
+    this.stop();
+    this.engine = new this.engineType(this.size);
     this.engine.initToRandom(this.fill);
+  }
+
+  @action changeEngine(engineType) {
+    this.engineType = engineType;
+    this.reset();
+  }
+
+  @computed get selectedEngineOption() {
+    return find(this.engines, { type: this.engineType }).value;
+  }
+
+  get engines() {
+    return [
+      { value: 'BW', label: 'Black & White', type: BlackAndWhiteEngine },
+      { value: 'Color', label: 'Colour', type: ColorEngine }
+    ]
   }
 }
