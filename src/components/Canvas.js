@@ -39,6 +39,8 @@ class Canvas extends Component {
       canvas.height = size;
       canvas.width = size;
       this.imageData = context.getImageData(0, 0, size, size);
+      engine.draw(this.imageData);
+      context.putImageData(this.imageData, 0, 0);
     }
   }
 

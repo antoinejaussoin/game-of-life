@@ -24,8 +24,8 @@ class App extends Component {
         
         <div className={header}>
           <Button bsStyle="primary" bsSize="large" onClick={() => game.running ? game.stop() : game.start()}>{game.running ? 'Stop': 'Start'}</Button>
-          <Slider min={10} max={2000} value={game.size} onChange={v => game.changeSize(v)} />
-          <div>{game.size}x{game.size}</div>
+          <Slider label="Size" min={10} max={2000} value={game.size} onChange={v => game.changeSize(v)} />
+          <Slider label="Fill" min={0} max={100} value={game.fill} onChange={v => game.changeFill(v)} />
           <FPSStats isActive={true} right={1} />
         </div>
         <Canvas engine={game.engine} running={game.running} />
