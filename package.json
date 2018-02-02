@@ -4,8 +4,10 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "parcel ./index.html",
-    "build": "parcel build ./index.html --public-url ./"
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test --env=jsdom",
+    "eject": "react-app-rewired eject"
   },
   "repository": {
     "type": "git",
@@ -21,7 +23,15 @@
     "babel-preset-env": "^1.6.1",
     "jest": "^22.1.4",
     "lodash": "^4.17.4",
+    "mobx": "^3.4.1",
+    "mobx-react": "^4.3.5",
     "moment": "^2.20.1",
-    "parcel-bundler": "^1.5.1"
+    "parcel-bundler": "^1.5.1",
+    "react": "^16.2.0",
+    "react-app-rewire-mobx": "^1.0.7",
+    "react-app-rewired": "^1.4.1",
+    "react-dom": "^16.2.0",
+    "react-scripts": "1.1.0",
+    "react-stats-zavatta": "^0.0.6"
   }
 }
