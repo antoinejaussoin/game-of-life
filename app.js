@@ -1,5 +1,6 @@
 import ColorEngine from './bw-engine';
 import { gosperGliderGun, blockLayingSwitch, addMargins, blank } from './shapes';
+import { classic, highLife } from './variations';
 import './utils';
 
 const size = 1000;
@@ -16,9 +17,9 @@ canvas.width = size;
 
 // Engine
 const margin = addMargins(50);
-const engine = new ColorEngine(size, imageData);
-engine.initToRandom(100);
-engine.inject(1, 1, blank(size - 2, size - 2));
+const engine = new ColorEngine(size, imageData, highLife);
+engine.initToRandom(3);
+//engine.inject(1, 1, blank(size - 2, size - 2));
 
 canvas.addEventListener('click', event => {
     console.log('Event: ', event);

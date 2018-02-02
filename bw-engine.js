@@ -1,5 +1,8 @@
+import { classic } from './variations';
+
 export default class BlackAndWhiteEngine {
-  constructor(size, imageData) {
+  constructor(size, imageData, variation = classic) {
+    this._variation = variation;
     this.size = size;
     this._imageData = imageData || [];
     this._getScore = this._getScore.bind(this);
@@ -66,14 +69,9 @@ export default class BlackAndWhiteEngine {
   }
   
   _getNextValue(grid, x, y, getScoreFn) {
-    const score = getScoreFn(grid, x, y);
-    if (score < 2 || score > 3) {
-      return 0;
-    } else if (score === 3) {
-      return 1;
-    } else {
-      return grid[x][y];
-    }
+    const neighbours = getScoreFn(grid, x, y);
+    const next = this._variation(neighbours);
+    return next === -1 ? grid[x][y] : next;
   }
   
   play() {

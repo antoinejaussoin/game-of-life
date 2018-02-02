@@ -1,7 +1,10 @@
+import { classic } from './variations';
+
 const numberOfColours = 1000;
 
 export default class ColorEngine {
-  constructor(size, imageData) {
+  constructor(size, imageData, variation = classic) {
+    this._variation = variation;
     this.size = size;
     this._imageData = imageData || [];
     this._deadColours = this._generateColorArray({ r: 127, g: 0, b: 0}, { r: 255, g: 221, b: 221 }, numberOfColours);
@@ -73,14 +76,9 @@ export default class ColorEngine {
   }
   
   _getNextValue(grid, x, y, getScoreFn) {
-    const score = getScoreFn(grid, x, y);
-    if (score < 2 || score > 3) {
-      return 0;
-    } else if (score === 3) {
-      return 1;
-    } else {
-      return grid[x][y].value;
-    }
+    const neighbours = getScoreFn(grid, x, y);
+    const next = this._variation(neighbours);
+    return next === -1 ? grid[x][y].value : next;
   }
   
   _update(from, to, i, j, next) {

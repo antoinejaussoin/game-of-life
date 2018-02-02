@@ -1,7 +1,28 @@
 'use strict';
 
+const classic = (neighbours) => {
+  if (neighbours < 2 || neighbours > 3) {
+    return 0;
+  } else if (neighbours === 3) {
+    return 1;
+  } else {
+    return -1;
+  }
+};
+
+const highLife = (neighbours) => {
+  if (neighbours === 3 || neighbours === 6) {
+    return 1;
+  } else if (neighbours === 2) {
+    return -1;
+  } else {
+    return 0;
+  }
+};
+
 class BlackAndWhiteEngine {
-  constructor(size, imageData) {
+  constructor(size, imageData, variation = classic) {
+    this._variation = variation;
     this.size = size;
     this._imageData = imageData || [];
     this._getScore = this._getScore.bind(this);
@@ -9,13 +30,13 @@ class BlackAndWhiteEngine {
   }
   
   _generateEmptyGrid(percentageAlive) {
-    const grid = [];
+    const grid = new Array(this.size);
     
     for(let i = 0; i < this.size; i++) {
-      const row = [];
-      grid.push(row);
+      const row = new Array(this.size);
+      grid[i] = row;
       for(let j = 0; j < this.size; j++) {
-        row.push(Math.random() > (100 - percentageAlive)/100 ? 1 : 0);
+        row[j] = Math.random() > (100 - percentageAlive)/100 ? 1 : 0;
       }
     }
     
@@ -68,14 +89,9 @@ class BlackAndWhiteEngine {
   }
   
   _getNextValue(grid, x, y, getScoreFn) {
-    const score = getScoreFn(grid, x, y);
-    if (score < 2 || score > 3) {
-      return 0;
-    } else if (score === 3) {
-      return 1;
-    } else {
-      return grid[x][y];
-    }
+    const neighbours = getScoreFn(grid, x, y);
+    const next = this._variation(neighbours);
+    return next === -1 ? grid[x][y] : next;
   }
   
   play() {
@@ -105,9 +121,9 @@ class BlackAndWhiteEngine {
       const i = size - 1;
       this._gridB[i][j] = this._getNextValue(this._gridA, i, j, this._getScoreSafe);
     }
-    let tmp = this._gridA;
+    this._tmp = this._gridA;
     this._gridA = this._gridB;
-    this._gridB = tmp;
+    this._gridB = this._tmp;
     this.generation++;
   }
   
@@ -130,6 +146,10 @@ class BlackAndWhiteEngine {
         }
       }
     }
+  }
+
+  toArray() {
+    return this._gridA;
   }
 }
 
@@ -198,10 +218,9 @@ canvas.className = "board";
 canvas.height = size;
 canvas.width = size;
 
-// Engine
-const engine = new BlackAndWhiteEngine(size, imageData);
-engine.initToRandom(100);
-engine.inject(300, 300, blank(400, 400));
+const engine = new BlackAndWhiteEngine(size, imageData, highLife);
+engine.initToRandom(3);
+//engine.inject(1, 1, blank(size - 2, size - 2));
 
 canvas.addEventListener('click', event => {
     console.log('Event: ', event);
