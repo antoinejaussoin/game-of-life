@@ -18,7 +18,7 @@
   "bugs": {
     "url": "https://github.com/antoinejaussoin/game-of-life/issues"
   },
-  "homepage": "/build",
+  "homepage": "/gol",
   "dependencies": {
     "babel-preset-env": "^1.6.1",
     "emotion": "^8.0.12",
