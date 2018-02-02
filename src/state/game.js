@@ -1,11 +1,12 @@
 import { observable, computed, action } from 'mobx';
 import Engine from '../engines/bw-engine';
+import { highLife } from '../engines/variations';
 
 export default class Game {
   @observable running = false;
 
   constructor() {
-    this._engine = new Engine(1000);
+    this._engine = new Engine(1000, highLife);
   }
 
   @action start() {
@@ -14,10 +15,6 @@ export default class Game {
 
   @action stop() {
     this.running = false;
-  }
-
-  setImageData(imageData) {
-    this._engine._imageData = imageData;
   }
 
   @computed get engine() {

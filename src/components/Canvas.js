@@ -13,12 +13,11 @@ class Canvas extends Component {
     canvas.height = size;
     canvas.width = size;
     const imageData = context.getImageData(0, 0, size, size);
-    engine._imageData = imageData;
-    engine.initToRandom(50);
+    engine.initToRandom(6);
 
     const next = () => {
       if (this.props.running) {
-        engine.draw();
+        engine.draw(imageData);
         context.putImageData(imageData, 0, 0);
         engine.play();
       }
