@@ -16,18 +16,25 @@ const header = css`
   }
 `;
 
+const generation = css`
+  font-size: 3em;
+`
+
 @observer
 class App extends Component {
   render() {
     const { game } = this.props;
     return (
-      <div>
-        
+      <div>        
         <div className={header}>
-          <Button bsStyle="primary" bsSize="large" onClick={() => game.running ? game.stop() : game.start()}>{game.running ? 'Stop': 'Start'}</Button>
+          <Button onClick={() => game.running ? game.stop() : game.start()}>{game.running ? 'Stop': 'Start'}</Button>
+          <Button onClick={() => game.reset() }>Reset</Button>
           <Slider label="Size" min={10} max={2000} value={game.size} onChange={v => game.changeSize(v)} />
           <Slider label="Fill" min={0} max={100} value={game.fill} onChange={v => game.changeFill(v)} />
-          <Dropdown label="Engine" value={game.selectedEngineOption} options={game.engines} onChange={v => game.changeEngine(v.type)} />
+          <Dropdown label="Engine" value={game.engineType} options={game.engineTypes} onChange={v => game.changeEngineType(v)} />
+          <Dropdown label="Variation" value={game.variation} options={game.variations} onChange={v => game.changeVariation(v)} />
+          <div className={generation}>{game.generation}</div>
+
           <FPSStats isActive={true} right={1} />
         </div>
         <Canvas engine={game.engine} running={game.running} />

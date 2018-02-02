@@ -10,8 +10,7 @@ const containerStyle = css`
 const Dropdown = ({ label, options, value, onChange }) => (
   <div className={containerStyle}>
     <label>{label}</label>
-    <select name="text" value={value} onChange={e => {
-      // console.log(e.target.value);
+    <select name="text" value={value.value} onChange={e => {
       const value = e.target.value;
       const option = find(options, { value });
       onChange(option);

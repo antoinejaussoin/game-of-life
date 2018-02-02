@@ -1,17 +1,20 @@
-import { observable, computed, action } from 'mobx';
+import { observable, computed, action, extendObservable } from 'mobx';
 import find from 'lodash/find';
 import BlackAndWhiteEngine from '../engines/bw-engine';
 import ColorEngine from '../engines/color-engine';
-import { highLife } from '../engines/variations';
+import { classic, highLife } from '../engines/variations';
 
 export default class Game {
   @observable running = false;
   @observable size = 1000;
   @observable fill = 50;
   @observable engine = null;
-  @observable engineType = BlackAndWhiteEngine;
+  @observable engineType = null;
+  @observable variation = null;
 
   constructor() {
+    this.engineType = this.engineTypes[0];
+    this.variation = this.variations[0];
     this.changeSize(this.size);
   }
 
@@ -35,23 +38,40 @@ export default class Game {
 
   @action reset() {
     this.stop();
-    this.engine = new this.engineType(this.size);
+    this.engine = new this.engineType.type(this.size, this.variation.type);
+    extendObservable(this.engine, { generation: 0});
     this.engine.initToRandom(this.fill);
   }
 
-  @action changeEngine(engineType) {
+  @action changeEngineType(engineType) {
     this.engineType = engineType;
     this.reset();
   }
 
-  @computed get selectedEngineOption() {
-    return find(this.engines, { type: this.engineType }).value;
+  @action changeVariation(variation) {
+    this.variation = variation;
+    this.reset();
   }
 
-  get engines() {
+  @computed get generation() {
+    return this.engine.generation;
+  }
+
+  get engineTypeClass() {
+    return this.engineType.type;
+  }
+
+  get engineTypes() {
     return [
       { value: 'BW', label: 'Black & White', type: BlackAndWhiteEngine },
       { value: 'Color', label: 'Colour', type: ColorEngine }
+    ]
+  }
+
+  get variations() {
+    return [
+      { value: 'Classic', label: 'Conway\'s Classic ', type: classic },
+      { value: 'HighLife', label: 'High Life', type: highLife }
     ]
   }
 }
