@@ -21,7 +21,6 @@ export default class BlackAndWhiteEngine {
         } else {
           row[j] = 0;
         }
-        //row[j] = Math.random() > (100 - percentageAlive)/100 ? 1 : 0;
       }
     }
     

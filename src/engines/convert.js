@@ -1,7 +1,3 @@
-
-//http://nullprogram.com/webgl-game-of-life/
-//http://www.radicaleye.com/lifepage/picgloss/picgloss.html
-
 export const convert = (shape) => {
   let row = [];
   const result = [ row ];
