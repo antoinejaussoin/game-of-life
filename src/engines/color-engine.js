@@ -28,6 +28,17 @@ export default class ColorEngine {
     
     return grid;
   }
+
+  register(canvas) {
+    this.canvas = canvas;
+    const context = canvas.getContext('2d');
+    console.log(canvas);
+    context.imageSmoothingEnabled = true;
+    canvas.height = this.size;
+    canvas.width = this.size;
+    this._context = context;
+    this._imageData = context.getImageData(0, 0, this.size, this.size);
+  }
  
   initToRandom(percentageAlive) {
     this._gridA = this._generateEmptyGrid(percentageAlive);
@@ -171,7 +182,7 @@ export default class ColorEngine {
     return array;
   }
   
-  draw(imageData) {
+  draw() {
     for(let i = 0; i < this.size; i++) {
       const row = this._gridA[i];
       for(let j = 0; j < this.size; j++) {
@@ -184,9 +195,10 @@ export default class ColorEngine {
         (cell.age < numberOfColours ? cell.age : numberOfColours - 1);
         const color = value ? this._aliveColours[age] : this._deadColours[age];
         
-        this._setPixel(imageData, i, j, color);
+        this._setPixel(this._imageData, i, j, color);
       }
     }
+    this._context.putImageData(this._imageData, 0, 0);
   }
 
   toArray() {

@@ -2,12 +2,13 @@ import { observable, computed, action, extendObservable } from 'mobx';
 import find from 'lodash/find';
 import BlackAndWhiteEngine from '../engines/bw-engine';
 import ColorEngine from '../engines/color-engine';
+import WebGlEngine from '../engines/webgl/webgl-engine';
 import { classic, highLife } from '../engines/variations';
 import shapes from '../engines/shapes';
 
 export default class Game {
   @observable running = false;
-  @observable size = 1000;
+  @observable size = 1024 * 2;
   @observable fill = 50;
   @observable engine = null;
   @observable engineType = null;
@@ -43,7 +44,7 @@ export default class Game {
     this.stop();
     this.engine = new this.engineType.type(this.size, this.variation.type);
     extendObservable(this.engine, { generation: 0});
-    this.engine.initToRandom(this.fill);
+    //this.engine.initToRandom(this.fill);
   }
 
   @action changeEngineType(engineType) {
@@ -81,7 +82,8 @@ export default class Game {
   get engineTypes() {
     return [
       { value: 'BW', label: 'Black & White', type: BlackAndWhiteEngine },
-      { value: 'Color', label: 'Colour', type: ColorEngine }
+      { value: 'Color', label: 'Colour', type: ColorEngine },
+      { value: 'WebGL', label: 'WebGL', type: WebGlEngine }
     ]
   }
 

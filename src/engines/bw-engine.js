@@ -21,6 +21,17 @@ export default class BlackAndWhiteEngine {
     
     return grid;
   }
+
+  register(canvas) {
+    this.canvas = canvas;
+    const context = canvas.getContext('2d');
+    console.log(canvas);
+    context.imageSmoothingEnabled = true;
+    canvas.height = this.size;
+    canvas.width = this.size;
+    this._context = context;
+    this._imageData = context.getImageData(0, 0, this.size, this.size);
+  }
   
   initToRandom(percentageAlive) {
     this._gridA = this._generateEmptyGrid(percentageAlive);
@@ -106,25 +117,26 @@ export default class BlackAndWhiteEngine {
     this.generation++;
   }
   
-  draw(imageData) {
+  draw() {
     for(let i = 0; i < this.size; i++) {
       const row = this._gridA[i];
       for(let j = 0; j < this.size; j++) {
         const index = (i + j * this.size) * 4;
 
         if (row[j]) {
-          imageData.data[index]     = 37;
-          imageData.data[index + 1] = 168;
-          imageData.data[index + 2] = 45;
-          imageData.data[index + 3] = 255;
+          this._imageData.data[index]     = 37;
+          this._imageData.data[index + 1] = 168;
+          this._imageData.data[index + 2] = 45;
+          this._imageData.data[index + 3] = 255;
         } else {
-          imageData.data[index]     = 255;
-          imageData.data[index + 1] = 240;
-          imageData.data[index + 2] = 237;
-          imageData.data[index + 3] = 255;
+          this._imageData.data[index]     = 255;
+          this._imageData.data[index + 1] = 240;
+          this._imageData.data[index + 2] = 237;
+          this._imageData.data[index + 3] = 255;
         }
       }
     }
+    this._context.putImageData(this._imageData, 0, 0);
   }
 
   toArray() {
