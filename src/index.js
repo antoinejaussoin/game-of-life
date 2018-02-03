@@ -4,7 +4,6 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import Game from './state/game';
-import './utils';
 
 const game = new Game();
 

@@ -1,6 +1,6 @@
 const inject = (container, x, y, shape) => {
-  console.log('Container: ', container.length, container[0].length);
-  console.log('Shape: ', shape.length, shape[0].length);
+  // console.log('Container: ', container.length, container[0].length);
+  // console.log('Shape: ', shape.length, shape[0].length);
   for(let i = 0; i < shape.length; i++) {
     const row = shape[i];
     for(let j = 0; j < row.length; j++) {

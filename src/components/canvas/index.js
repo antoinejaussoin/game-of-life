@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import './Canvas.css';
+import './utils';
 import { observer } from 'mobx-react';
 
 @observer
 class Canvas extends Component {
+  constructor(props) {
+    super(props);
+    this.onCanvasClick = this.onCanvasClick.bind(this);
+  }
   componentDidMount() {
     const engine = this.props.engine;
     const size = engine.size;
@@ -13,10 +18,11 @@ class Canvas extends Component {
     canvas.height = size;
     canvas.width = size;
     this.imageData = context.getImageData(0, 0, size, size);
+    engine.draw(this.imageData);
+    context.putImageData(this.imageData, 0, 0);
 
     const next = () => {
       const engine = this.props.engine;
-      console.log('size: ', engine.size);
       if (this.props.running) {
         engine.draw(this.imageData);
         context.putImageData(this.imageData, 0, 0);
@@ -43,10 +49,22 @@ class Canvas extends Component {
     }
   }
 
+  onCanvasClick(e) {
+    const coords = this.canvas.relMouseCoords(e);
+    if (this.props.onClick) {
+      this.props.onClick(coords);
+    }
+  }
+
   render() {
     return (
       <div className="container">
-        <canvas className="board" ref={(canvas) => this.canvas = canvas } style={{ imageRendering: this.props.pixelated ? 'pixelated': 'auto' }} />
+        <canvas
+          className="board"
+          onClick={this.onCanvasClick}
+          ref={(canvas) => this.canvas = canvas }
+          style={{ imageRendering: this.props.pixelated ? 'pixelated': 'auto' }}
+        />
       </div>
     );
   }

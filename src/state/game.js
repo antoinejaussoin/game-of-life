@@ -3,6 +3,7 @@ import find from 'lodash/find';
 import BlackAndWhiteEngine from '../engines/bw-engine';
 import ColorEngine from '../engines/color-engine';
 import { classic, highLife } from '../engines/variations';
+import shapes from '../engines/shapes';
 
 export default class Game {
   @observable running = false;
@@ -11,6 +12,7 @@ export default class Game {
   @observable engine = null;
   @observable engineType = null;
   @observable variation = null;
+  @observable shape = null;
   @observable pixelated = true;
 
   constructor() {
@@ -54,8 +56,18 @@ export default class Game {
     this.reset();
   }
 
+  @action changeShape(shape) {
+    this.shape = shape;
+  }
+
   @action togglePixelated() {
     this.pixelated = !this.pixelated;
+  }
+
+  @action insertShape(coords) {
+    if (this.shape) {
+      this.engine.inject(coords.x, coords.y, this.shape.shape);
+    }
   }
 
   @computed get generation() {
@@ -78,5 +90,9 @@ export default class Game {
       { value: 'Classic', label: 'Conway\'s Classic ', type: classic },
       { value: 'HighLife', label: 'High Life', type: highLife }
     ]
+  }
+
+  get shapes() {
+    return shapes;
   }
 }

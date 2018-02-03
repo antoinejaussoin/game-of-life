@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Canvas from './components/Canvas';
+import Canvas from './components/canvas';
 import FPSStats from 'react-stats-zavatta';
 import Button from './components/button';
 import Slider from './components/slider';
@@ -33,9 +33,8 @@ const Left = styled('div')`
 
 const Right = styled('div')`
   width: 300px;
+  padding: 20px;
 `;
-
-
 
 @observer
 class App extends Component {
@@ -56,11 +55,21 @@ class App extends Component {
         </div>
         <Container>
           <Left>
-            <Canvas engine={game.engine} running={game.running} pixelated={game.pixelated} />
+            <Canvas
+              engine={game.engine}
+              running={game.running}
+              pixelated={game.pixelated}
+              onClick={coords => game.insertShape(coords)}
+            />
           </Left>
           <Right>
-            {shapes.map(shape => (
-              <Shape name={shape.name} shape={addMargins(1)(shape.shape)} />
+            {game.shapes.map(shape => (
+              <Shape
+                name={shape.name}
+                selected={game.shape && game.shape.name == shape.name}
+                onClick={() => game.changeShape(shape)}
+                shape={addMargins(1)(shape.shape)}
+              />
             ))}
           </Right>
         </Container>

@@ -2,12 +2,15 @@ import React from 'react';
 import styled, { css } from 'react-emotion';
 import find from 'lodash/find';
 
-const containerStyle = css`
+const Container = styled('div')`
   display: flex;
   flex-direction: column;
+  outline: ${props => props.selected ? '3px solid purple': 'none'}
+  padding: 3px;
+  margin: 5px 0;
 `;
 
-const Container = styled('div')`
+const Board = styled('div')`
   display: flex;
   flex-direction: column;
 `;
@@ -31,17 +34,17 @@ const Cell = styled('div')`
   border: 1px solid grey;
 `;
 
-const Shape = ({ name, shape }) => (
-  <div className={containerStyle}>
+const Shape = ({ name, shape, selected, onClick }) => (
+  <Container onClick={onClick} selected={selected}>
     <label>{name}</label>
-    <Container>
+    <Board>
       {shape.map(row => (
         <Row>
           {row.map(cell => <Cell value={cell} count={row.length} />)}
         </Row>
       ))}
-    </Container>
-  </div>
+    </Board>
+  </Container>
 );
 
 export default Shape;
