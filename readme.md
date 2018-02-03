@@ -1,0 +1,1 @@
+http://kaytdek.trevorshp.com/projects/computer/neuralNetworks/gameOfLife2.htm
