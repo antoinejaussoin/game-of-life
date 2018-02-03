@@ -5,8 +5,10 @@ import Button from './components/button';
 import Slider from './components/slider';
 import Dropdown from './components/dropdown';
 import Checkbox from './components/checkbox';
+import Shape from './components/shape';
+import shapes, { gosperGliderGun, addMargins } from './engines/shapes'
 import { observer } from 'mobx-react';
-import { css } from 'emotion';
+import styled, { css } from 'react-emotion';
 
 const header = css`
   display: flex;
@@ -19,7 +21,21 @@ const header = css`
 
 const generation = css`
   font-size: 3em;
-`
+`;
+
+const Container = styled('div')`
+  display: flex;
+`;
+
+const Left = styled('div')`
+  flex: 1;
+`;
+
+const Right = styled('div')`
+  width: 300px;
+`;
+
+
 
 @observer
 class App extends Component {
@@ -38,7 +54,16 @@ class App extends Component {
 
           <FPSStats isActive={true} right={1} />
         </div>
-        <Canvas engine={game.engine} running={game.running} pixelated={game.pixelated} />
+        <Container>
+          <Left>
+            <Canvas engine={game.engine} running={game.running} pixelated={game.pixelated} />
+          </Left>
+          <Right>
+            {shapes.map(shape => (
+              <Shape name={shape.name} shape={addMargins(1)(shape.shape)} />
+            ))}
+          </Right>
+        </Container>
       </div>
     );
   }
