@@ -4,7 +4,7 @@ div.container {
 }
 
 canvas.board {
-  image-rendering: pixelated;
+  /* image-rendering: optimizeQuality; */
   position: absolute;
   top: 0; right: 10px; bottom: 10px; left: 0;
   width: 100%;

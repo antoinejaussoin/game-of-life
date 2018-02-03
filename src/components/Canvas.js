@@ -9,11 +9,10 @@ class Canvas extends Component {
     const size = engine.size;
     const canvas = this.canvas;
     const context = canvas.getContext('2d');
-    context.imageSmoothingEnabled = false;
+    context.imageSmoothingEnabled = true;
     canvas.height = size;
     canvas.width = size;
     this.imageData = context.getImageData(0, 0, size, size);
-    //const imageData = context.getImageData(0, 0, size, size);
 
     const next = () => {
       const engine = this.props.engine;
@@ -47,7 +46,7 @@ class Canvas extends Component {
   render() {
     return (
       <div className="container">
-        <canvas className="board" ref={(canvas) => this.canvas = canvas } />
+        <canvas className="board" ref={(canvas) => this.canvas = canvas } style={{ imageRendering: this.props.pixelated ? 'pixelated': 'auto' }} />
       </div>
     );
   }

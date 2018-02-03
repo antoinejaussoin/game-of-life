@@ -11,6 +11,7 @@ export default class Game {
   @observable engine = null;
   @observable engineType = null;
   @observable variation = null;
+  @observable pixelated = true;
 
   constructor() {
     this.engineType = this.engineTypes[0];
@@ -51,6 +52,10 @@ export default class Game {
   @action changeVariation(variation) {
     this.variation = variation;
     this.reset();
+  }
+
+  @action togglePixelated() {
+    this.pixelated = !this.pixelated;
   }
 
   @computed get generation() {
