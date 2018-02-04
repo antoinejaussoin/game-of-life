@@ -1,3 +1,5 @@
+// This is a modified version of https://github.com/skeeto/webgl-game-of-life
+
 import Igloo from './igloo';
 import quadVert from './glsl/quad.vert';
 import copyFrag from './glsl/copy.frag';

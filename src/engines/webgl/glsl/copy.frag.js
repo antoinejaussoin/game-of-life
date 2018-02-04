@@ -1,3 +1,5 @@
+// Taken from https://github.com/skeeto/webgl-game-of-life
+
 export default `#ifdef GL_ES
 precision mediump float;
 #endif
