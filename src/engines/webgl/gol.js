@@ -29,7 +29,7 @@ export default function GOL(canvas, scale, variation) {
     gl.disable(gl.DEPTH_TEST);
     this.programs = {
         copy: igloo.program(quadVert, copyFrag),
-        gol:  igloo.program(quadVert, golFrag(variation.webGl))
+        gol:  igloo.program(quadVert, golFrag(variation.webGl, deadColour, aliveColour))
     };
     this.buffers = {
         quad: igloo.array(Igloo.QUAD2)
