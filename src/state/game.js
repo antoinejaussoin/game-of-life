@@ -1,5 +1,4 @@
 import { observable, computed, action, extendObservable } from 'mobx';
-import find from 'lodash/find';
 import BlackAndWhiteEngine from '../engines/bw-engine';
 import ColorEngine from '../engines/color-engine';
 import WebGlEngine from '../engines/webgl/webgl-engine';

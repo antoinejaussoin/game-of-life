@@ -1,6 +1,5 @@
 import React from 'react';
-import styled, { css } from 'react-emotion';
-import find from 'lodash/find';
+import styled from 'react-emotion';
 
 const Container = styled('div')`
   display: flex;
@@ -38,9 +37,9 @@ const Shape = ({ name, shape, selected, onClick }) => (
   <Container onClick={onClick} selected={selected}>
     <label>{name}</label>
     <Board>
-      {shape.map(row => (
-        <Row>
-          {row.map(cell => <Cell value={cell} count={row.length} />)}
+      {shape.map((row, index) => (
+        <Row key={index}>
+          {row.map((cell, index2) => <Cell key={index2} value={cell} count={row.length} />)}
         </Row>
       ))}
     </Board>

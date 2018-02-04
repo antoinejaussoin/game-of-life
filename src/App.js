@@ -6,7 +6,7 @@ import Slider from './components/slider';
 import Dropdown from './components/dropdown';
 import Checkbox from './components/checkbox';
 import Shape from './components/shape';
-import shapes, { gosperGliderGun, addMargins } from './engines/shapes'
+import { addMargins } from './engines/shapes'
 import { observer } from 'mobx-react';
 import styled, { css } from 'react-emotion';
 
@@ -19,7 +19,7 @@ const header = css`
   }
 `;
 
-const generation = css`
+const Generation = styled('div')`
   font-size: 3em;
 `;
 
@@ -50,7 +50,7 @@ class App extends Component {
           <Dropdown label="Engine" value={game.engineType} options={game.engineTypes} onChange={v => game.changeEngineType(v)} />
           <Dropdown label="Variation" value={game.variation} options={game.variations} onChange={v => game.changeVariation(v)} />
           <Checkbox label="Pixelated" value={game.pixelated} onChange={() => game.togglePixelated()} />
-
+          <Generation>{game.generation}</Generation>
           <FPSStats isActive={true} right={1} />
         </div>
         <Container>
@@ -65,8 +65,9 @@ class App extends Component {
           <Right>
             {game.shapes.map(shape => (
               <Shape
+                key={shape.name}
                 name={shape.name}
-                selected={game.shape && game.shape.name == shape.name}
+                selected={game.shape && game.shape.name === shape.name}
                 onClick={() => game.changeShape(shape)}
                 shape={addMargins(1)(shape.shape)}
               />

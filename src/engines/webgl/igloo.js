@@ -429,7 +429,7 @@ Igloo.Texture.prototype.set = function(source, width, height) {
     var gl = this.gl;
     this.bind();
     if (source instanceof Array) {
-        if (this.type == gl.FLOAT) {
+        if (this.type === gl.FLOAT) {
             source = new Float32Array(source);
         } else {
             source = new Uint8Array(source);
@@ -459,7 +459,7 @@ Igloo.Texture.prototype.subset = function(source, xoff, yoff, width, height) {
     var gl = this.gl;
     this.bind();
     if (source instanceof Array) {
-        if (this.type == gl.FLOAT) {
+        if (this.type === gl.FLOAT) {
             source = new Float32Array(source);
         } else {
             source = new Uint8Array(source);
@@ -499,7 +499,7 @@ Igloo.Texture.prototype.copy = function(x, y, width, height) {
 Igloo.Framebuffer = function(gl, framebuffer) {
     this.gl = gl;
     this.framebuffer =
-        arguments.length == 2 ? framebuffer : gl.createFramebuffer();
+        arguments.length === 2 ? framebuffer : gl.createFramebuffer();
     this.renderbuffer = null;
 };
 

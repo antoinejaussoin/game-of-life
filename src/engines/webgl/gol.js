@@ -91,7 +91,6 @@ GOL.expand = function(buffer) {
  * @returns {GOL} this
  */
 GOL.prototype.set = function(state) {
-    var gl = this.igloo.gl;
     var rgba = new Uint8Array(this.statesize[0] * this.statesize[1] * 4);
     for (var i = 0; i < state.length; i++) {
         var ii = i * 4;
@@ -111,7 +110,7 @@ GOL.prototype.set = function(state) {
  * @returns {GOL} this
  */
 GOL.prototype.setRandom = function(p) {
-    var gl = this.igloo.gl, size = this.statesize[0] * this.statesize[1];
+    const size = this.statesize[0] * this.statesize[1];
     p = p == null ? 0.5 : p;
     var rand = new Uint8Array(size);
     for (var i = 0; i < size; i++) {
@@ -191,8 +190,7 @@ GOL.prototype.draw = function() {
  * @returns {GOL} this
  */
 GOL.prototype.poke = function(x, y, state) {
-    var gl = this.igloo.gl,
-        colour = state ? aliveColour : deadColour;
+    const colour = state ? aliveColour : deadColour;
     this.textures.front.subset([colour.r, colour.g, colour.b, 255], x, y, 1, 1);
     return this;
 };

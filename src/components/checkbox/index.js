@@ -9,7 +9,7 @@ const containerStyle = css`
 const Checkbox = ({ label = '', value = false, onChange }) => (
   <div className={containerStyle}>
     <label>{label} {value}</label>
-    <input type="checkbox" checked={value} onClick={e => {
+    <input type="checkbox" defaultChecked={value} onClick={e => {
       onChange(e.target.value);
     }} />
   </div>
