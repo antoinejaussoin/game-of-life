@@ -2,7 +2,7 @@ import { classic } from './variations';
 
 export default class BlackAndWhiteEngine {
   isWebgl = false;
-  
+
   constructor(size, variation = classic) {
     this._variation = variation;
     this.size = size;
@@ -82,7 +82,7 @@ export default class BlackAndWhiteEngine {
   
   _getNextValue(grid, x, y, getScoreFn) {
     const neighbours = getScoreFn(grid, x, y);
-    const next = this._variation(neighbours);
+    const next = this._variation.js(neighbours);
     return next === -1 ? grid[x][y] : next;
   }
   

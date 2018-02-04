@@ -4,7 +4,7 @@ const numberOfColours = 1000;
 
 export default class ColorEngine {
   isWebgl = false;
-  
+
   constructor(size, variation = classic) {
     this._variation = variation;
     this.size = size;
@@ -89,7 +89,7 @@ export default class ColorEngine {
   
   _getNextValue(grid, x, y, getScoreFn) {
     const neighbours = getScoreFn(grid, x, y);
-    const next = this._variation(neighbours);
+    const next = this._variation.js(neighbours);
     return next === -1 ? grid[x][y].value : next;
   }
   

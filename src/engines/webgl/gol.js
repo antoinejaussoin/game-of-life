@@ -8,7 +8,7 @@ import golFrag from './glsl/gol.frag';
  * @param {HTMLCanvasElement} canvas Render target
  * @param {number} [scale] Size of each cell in pixels (power of 2)
  */
-export default function GOL(canvas, scale) {
+export default function GOL(canvas, scale, variation) {
     var igloo = this.igloo = new Igloo(canvas);
     var gl = igloo.gl;
     if (gl == null) {
@@ -26,7 +26,7 @@ export default function GOL(canvas, scale) {
     gl.disable(gl.DEPTH_TEST);
     this.programs = {
         copy: igloo.program(quadVert, copyFrag),
-        gol:  igloo.program(quadVert, golFrag)
+        gol:  igloo.program(quadVert, golFrag(variation.webGl))
     };
     this.buffers = {
         quad: igloo.array(Igloo.QUAD2)

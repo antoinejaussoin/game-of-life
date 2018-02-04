@@ -13,7 +13,7 @@
 //float current = float(get(vec2(0.0, 0.0)));
 //gl_FragColor = vec4(current, current, current, 1.0);
 
-export default `#ifdef GL_ES
+export default (variation) => `#ifdef GL_ES
 precision mediump float;
 #endif
 
@@ -39,11 +39,16 @@ void main() {
         get(vec2( 1.0, -1.0)) +
         get(vec2( 1.0,  0.0)) +
         get(vec2( 1.0,  1.0));
-    if (sum == 3) {
-        gl_FragColor = vec4(37.0/255.0, 168.0/255.0, 45.0/255.0, 1.0);
-    } else if (sum == 2) {
-        gl_FragColor = texture2D(state, (gl_FragCoord.xy) / scale);
-    } else {
+
+    int result = 0;
+
+    ${variation}
+
+    if (result == 0) {
         gl_FragColor = vec4(1.0, 240.0/255.0, 237.0/255.0, 1.0);
+    } else if (result == 1) {
+        gl_FragColor = vec4(37.0/255.0, 168.0/255.0, 45.0/255.0, 1.0);
+    } else if (result == -1) {
+        gl_FragColor = texture2D(state, (gl_FragCoord.xy) / scale);
     }
 }`;

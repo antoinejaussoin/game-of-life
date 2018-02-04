@@ -22,7 +22,7 @@ export default class WebGlEngine {
       this.canvas = canvas;
       canvas.height = this.size;
       canvas.width = this.size;
-      this.gol = new GOL(canvas, 1);
+      this.gol = new GOL(canvas, 1, this._variation);
   }
 
   inject(x, y, shape) {
