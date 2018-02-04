@@ -42,7 +42,7 @@ export default class Game {
 
   @action reset() {
     this.stop();
-    this.engine = new this.engineType.type(this.size, this.variation.type);
+    this.engine = new this.engineType.type(this.size, this.fill, this.variation.type);
     extendObservable(this.engine, { generation: 0});
     //this.engine.initToRandom(this.fill);
   }

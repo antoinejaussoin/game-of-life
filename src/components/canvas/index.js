@@ -14,7 +14,7 @@ class Canvas extends Component {
     const size = engine.size;
     const canvas = this.activeCanvas;
     engine.register(canvas);
-    engine.initToRandom(30);
+    engine.initToRandom();
     engine.draw();
     
     const next = () => {
@@ -35,7 +35,7 @@ class Canvas extends Component {
       const canvas = engine.isWebgl ? this.webGlCanvas : this.canvas;
       const size = engine.size;
       engine.register(canvas);
-      engine.initToRandom(30);
+      engine.initToRandom();
       engine.draw();
     }
   }

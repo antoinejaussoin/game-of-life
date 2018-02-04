@@ -4,13 +4,14 @@ import GOL from './gol';
 export default class WebGlEngine {
   isWebgl = true;
 
-  constructor(size, variation = classic) {
+  constructor(size, fill, variation = classic) {
+    this._fill = fill;
     this._variation = variation;
     this.size = Math.pow(2, Math.ceil(Math.log(size)/Math.log(2)));;
   }
   
-  initToRandom(percentageAlive) {
-    this.gol.setRandom(percentageAlive / 100);
+  initToRandom() {
+    this.gol.setRandom(this._fill / 100);
     this.generation = 0;
   }
 

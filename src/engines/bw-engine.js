@@ -3,8 +3,9 @@ import { classic } from './variations';
 export default class BlackAndWhiteEngine {
   isWebgl = false;
 
-  constructor(size, variation = classic) {
+  constructor(size, fill, variation = classic) {
     this._variation = variation;
+    this._fill = fill;
     this.size = size;
     this._getScore = this._getScore.bind(this);
     this._getScoreSafe = this._getScoreSafe.bind(this);
@@ -35,8 +36,8 @@ export default class BlackAndWhiteEngine {
     this._imageData = context.getImageData(0, 0, this.size, this.size);
   }
   
-  initToRandom(percentageAlive) {
-    this._gridA = this._generateEmptyGrid(percentageAlive);
+  initToRandom() {
+    this._gridA = this._generateEmptyGrid(this._fill);
     this._gridB = this._generateEmptyGrid(0);
     this.generation = 0;
   }

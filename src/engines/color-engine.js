@@ -5,7 +5,8 @@ const numberOfColours = 1000;
 export default class ColorEngine {
   isWebgl = false;
 
-  constructor(size, variation = classic) {
+  constructor(size, fill, variation = classic) {
+    this._fill = fill;
     this._variation = variation;
     this.size = size;
     this._deadColours = this._generateColorArray({ r: 127, g: 0, b: 0}, { r: 255, g: 221, b: 221 }, numberOfColours);
@@ -42,8 +43,8 @@ export default class ColorEngine {
     this._imageData = context.getImageData(0, 0, this.size, this.size);
   }
  
-  initToRandom(percentageAlive) {
-    this._gridA = this._generateEmptyGrid(percentageAlive);
+  initToRandom() {
+    this._gridA = this._generateEmptyGrid(this._fill);
     this._gridB = this._generateEmptyGrid(0);
     this.generation = 0;
   }
