@@ -3,6 +3,9 @@ import quadVert from './glsl/quad.vert';
 import copyFrag from './glsl/copy.frag';
 import golFrag from './glsl/gol.frag';
 
+const aliveColour = { r: 37, g: 168, b: 45 };
+const deadColour = { r: 255, g: 240, b: 237 };
+
 /**
  * Game of Life simulation and display.
  * @param {HTMLCanvasElement} canvas Render target
@@ -92,19 +95,11 @@ GOL.prototype.set = function(state) {
     var rgba = new Uint8Array(this.statesize[0] * this.statesize[1] * 4);
     for (var i = 0; i < state.length; i++) {
         var ii = i * 4;
-        if (state[i]) {
-            rgba[ii]     = 37;
-            rgba[ii + 1] = 168;
-            rgba[ii + 2] = 45;
-            rgba[ii + 3] = 255;
-        } else {
-            rgba[ii]     = 255;
-            rgba[ii + 1] = 240;
-            rgba[ii + 2] = 237;
-            rgba[ii + 3] = 255;
-        }
-        // rgba[ii + 0] = rgba[ii + 1] = rgba[ii + 2] = state[i] ? 255 : 0;
-        // rgba[ii + 3] = 255;
+        const colour = state[i] ? aliveColour : deadColour;
+        rgba[ii]     = colour.r;
+        rgba[ii + 1] = colour.g;
+        rgba[ii + 2] = colour.b;
+        rgba[ii + 3] = 255;
     }
     this.textures.front.subset(rgba, 0, 0, this.statesize[0], this.statesize[1]);
     return this;
@@ -197,8 +192,8 @@ GOL.prototype.draw = function() {
  */
 GOL.prototype.poke = function(x, y, state) {
     var gl = this.igloo.gl,
-        v = state * 255;
-    this.textures.front.subset([v, v, v, 255], x, y, 1, 1);
+        colour = state ? aliveColour : deadColour;
+    this.textures.front.subset([colour.r, colour.g, colour.b, 255], x, y, 1, 1);
     return this;
 };
 

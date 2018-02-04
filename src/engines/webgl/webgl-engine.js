@@ -30,7 +30,7 @@ export default class WebGlEngine {
     for(let i = 0; i < shape.length; i++) {
       const row = shape[i];
       for(let j = 0; j < row.length; j++) {
-        this._gridA[j + x][i + y] = shape[i][j];
+        this.gol.poke(j + x, this.size - (i + y), shape[i][j]);
       }
     }
   }

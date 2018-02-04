@@ -68,6 +68,7 @@ export default class Game {
   @action insertShape(coords) {
     if (this.shape) {
       this.engine.inject(coords.x, coords.y, this.shape.shape);
+      this.engine.draw();
     }
   }
 
