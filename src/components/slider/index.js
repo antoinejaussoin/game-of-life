@@ -1,5 +1,6 @@
 import React from 'react';
 import { css } from 'emotion';
+import debounce from 'lodash/debounce';
 
 const containerStyle = css`
   display: flex;

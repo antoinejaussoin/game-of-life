@@ -5,6 +5,7 @@ import Button from './components/button';
 import Slider from './components/slider';
 import Dropdown from './components/dropdown';
 import Checkbox from './components/checkbox';
+import Counter from './components/counter';
 import Shape from './components/shape';
 import { addMargins } from './engines/shapes'
 import { observer } from 'mobx-react';
@@ -17,10 +18,6 @@ const header = css`
   > * {
     margin-right: 20px;
   }
-`;
-
-const Generation = styled('div')`
-  font-size: 3em;
 `;
 
 const Container = styled('div')`
@@ -45,12 +42,12 @@ class App extends Component {
         <div className={header}>
           <Button onClick={() => game.running ? game.stop() : game.start()}>{game.running ? 'Stop': 'Start'}</Button>
           <Button onClick={() => game.reset() }>Reset</Button>
-          <Slider label="Size" min={10} max={8192} value={game.size} onChange={v => game.changeSize(v)} />
+          <Slider label="Size" min={10} max={8192} value={game.engine.size} onChange={v => game.changeSize(v)} />
           <Slider label="Fill %" min={0} max={100} value={game.fill} onChange={v => game.changeFill(v)} />
           <Dropdown label="Engine" value={game.engineType} options={game.engineTypes} onChange={v => game.changeEngineType(v)} />
           <Dropdown label="Variation" value={game.variation} options={game.variations} onChange={v => game.changeVariation(v)} />
           <Checkbox label="Pixelated" value={game.pixelated} onChange={() => game.togglePixelated()} />
-          <Generation>{game.generation}</Generation>
+          <Counter count={game} />
           <FPSStats isActive={true} right={1} />
         </div>
         <Container>
