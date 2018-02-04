@@ -50,7 +50,9 @@ export default class ColorEngine {
   }
 
   initToBlank() {
-    this.initToRandom(0);
+    this._gridA = this._generateEmptyGrid(0);
+    this._gridB = this._generateEmptyGrid(0);
+    this.generation = 0;
   }
 
   inject(x, y, shape) {
