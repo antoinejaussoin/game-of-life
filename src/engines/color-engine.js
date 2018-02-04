@@ -3,6 +3,8 @@ import { classic } from './variations';
 const numberOfColours = 1000;
 
 export default class ColorEngine {
+  isWebgl = false;
+  
   constructor(size, variation = classic) {
     this._variation = variation;
     this.size = size;

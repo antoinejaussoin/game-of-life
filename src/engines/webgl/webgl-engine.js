@@ -2,9 +2,11 @@ import { classic } from '../variations';
 import GOL from './gol';
 
 export default class WebGlEngine {
+  isWebgl = true;
+
   constructor(size, variation = classic) {
     this._variation = variation;
-    this.size = size;
+    this.size = Math.pow(2, Math.ceil(Math.log(size)/Math.log(2)));;
   }
   
   initToRandom(percentageAlive) {

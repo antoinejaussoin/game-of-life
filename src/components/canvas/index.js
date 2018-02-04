@@ -12,7 +12,7 @@ class Canvas extends Component {
   componentDidMount() {
     const engine = this.props.engine;
     const size = engine.size;
-    const canvas = this.canvas;
+    const canvas = this.activeCanvas;
     engine.register(canvas);
     engine.initToRandom(30);
     engine.draw();
@@ -32,7 +32,7 @@ class Canvas extends Component {
   componentWillReceiveProps(nextProps) {
     if (this.props.engine !== nextProps.engine) {
       const engine = nextProps.engine;
-      const canvas = this.canvas;
+      const canvas = engine.isWebgl ? this.webGlCanvas : this.canvas;
       const size = engine.size;
       engine.register(canvas);
       engine.initToRandom(30);
@@ -40,8 +40,14 @@ class Canvas extends Component {
     }
   }
 
+  get activeCanvas() {
+    const engine = this.props.engine;
+    const canvas = engine.isWebgl ? this.webGlCanvas : this.canvas;
+    return canvas;
+  }
+
   onCanvasClick(e) {
-    const coords = this.canvas.relMouseCoords(e);
+    const coords = this.activeCanvas.relMouseCoords(e);
     if (this.props.onClick) {
       this.props.onClick(coords);
     }
@@ -50,12 +56,19 @@ class Canvas extends Component {
   render() {
     return (
       <div className="container">
-        <canvas
-          className="board"
-          onClick={this.onCanvasClick}
-          ref={(canvas) => this.canvas = canvas }
-          style={{ imageRendering: this.props.pixelated ? 'pixelated': 'auto' }}
-        />
+          <canvas
+            className="board"
+            onClick={this.onCanvasClick}
+            ref={(canvas) => this.webGlCanvas = canvas }
+            style={{ imageRendering: this.props.pixelated ? 'pixelated': 'auto', display: this.props.engine.isWebgl ? 'block' : 'none' }}
+          />
+          <canvas
+            className="board"
+            onClick={this.onCanvasClick}
+            ref={(canvas) => this.canvas = canvas }
+            style={{ imageRendering: this.props.pixelated ? 'pixelated': 'auto', display: !this.props.engine.isWebgl ? 'block' : 'none' }}
+          />
+        }
       </div>
     );
   }

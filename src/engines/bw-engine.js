@@ -1,6 +1,8 @@
 import { classic } from './variations';
 
 export default class BlackAndWhiteEngine {
+  isWebgl = false;
+  
   constructor(size, variation = classic) {
     this._variation = variation;
     this.size = size;

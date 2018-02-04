@@ -45,7 +45,7 @@ class App extends Component {
         <div className={header}>
           <Button onClick={() => game.running ? game.stop() : game.start()}>{game.running ? 'Stop': 'Start'}</Button>
           <Button onClick={() => game.reset() }>Reset</Button>
-          <Slider label="Size" min={10} max={2000} value={game.size} onChange={v => game.changeSize(v)} />
+          <Slider label="Size" min={10} max={8192} value={game.size} onChange={v => game.changeSize(v)} />
           <Slider label="Fill %" min={0} max={100} value={game.fill} onChange={v => game.changeFill(v)} />
           <Dropdown label="Engine" value={game.engineType} options={game.engineTypes} onChange={v => game.changeEngineType(v)} />
           <Dropdown label="Variation" value={game.variation} options={game.variations} onChange={v => game.changeVariation(v)} />
