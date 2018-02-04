@@ -8,7 +8,7 @@ import shapes from '../engines/shapes';
 
 export default class Game {
   @observable running = false;
-  @observable size = 2048;
+  @observable sizePower = 10;
   @observable fill = 20;
   @observable engine = null;
   @observable engineType = null;
@@ -19,7 +19,6 @@ export default class Game {
   constructor() {
     this.engineType = this.engineTypes[2];
     this.variation = this.variations[0];
-    this.changeSize(this.size);
     this.reset();
 
     const debouncedReset = debounce(this.reset.bind(this), 800);
@@ -43,8 +42,8 @@ export default class Game {
     this.running = false;
   }
 
-  @action changeSize(size) {
-    this.size = size;
+  @action changeSize(sizePower) {
+    this.sizePower = sizePower;
   }
 
   @action changeFill(fill) {
@@ -87,6 +86,10 @@ export default class Game {
 
   @computed get generation() {
     return this.engine.generation;
+  }
+
+  @computed get size() {
+    return Math.pow(2, this.sizePower);
   }
 
   get engineTypeClass() {

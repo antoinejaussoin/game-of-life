@@ -44,8 +44,8 @@ class App extends Component {
           <Button onClick={() => game.running ? game.stop() : game.start()}>{game.running ? 'Stop': 'Start'}</Button>
           <Button onClick={() => game.reset() }>Reset</Button>
           <Button onClick={() => game.clear() }>Clear</Button>
-          <Slider label="Size" min={10} max={8192} value={game.size} onChange={v => game.changeSize(v)} />
-          <Slider label="Fill %" min={0} max={100} value={game.fill} onChange={v => game.changeFill(v)} />
+          <Slider label={`Size ${game.size}px`} min={5} max={14} value={game.sizePower} onChange={v => game.changeSize(v)} />
+          <Slider label={`Fill ${game.fill}%`} min={0} max={100} value={game.fill} onChange={v => game.changeFill(v)} />
           <Dropdown label="Engine" value={game.engineType} options={game.engineTypes} onChange={v => game.changeEngineType(v)} />
           <Dropdown label="Variation" value={game.variation} options={game.variations} onChange={v => game.changeVariation(v)} />
           <Checkbox label="Pixelated" value={game.pixelated} onChange={() => game.togglePixelated()} />

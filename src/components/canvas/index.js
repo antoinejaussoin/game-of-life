@@ -66,7 +66,6 @@ class Canvas extends Component {
             ref={(canvas) => this.canvas = canvas }
             style={{ imageRendering: this.props.pixelated ? 'pixelated': 'auto', display: !this.props.engine.isWebgl ? 'block' : 'none' }}
           />
-        }
       </div>
     );
   }
