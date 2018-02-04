@@ -22,9 +22,6 @@ export default function GOL(canvas, scale, variation) {
     var w = canvas.width, h = canvas.height;
     this.viewsize = new Float32Array([w, h]);
     this.statesize = new Float32Array([w / scale, h / scale]);
-    this.timer = null;
-    this.lasttick = GOL.now();
-    this.fps = 0;
 
     gl.disable(gl.DEPTH_TEST);
     this.programs = {
@@ -43,47 +40,7 @@ export default function GOL(canvas, scale, variation) {
     this.framebuffers = {
         step: igloo.framebuffer()
     };
-    //this.setRandom();
 }
-
-/**
- * @returns {number} The epoch in integer seconds
- */
-GOL.now = function() {
-    return Math.floor(Date.now() / 1000);
-};
-
-/**
- * Compact a simulation state into a bit array.
- * @param {Object} state Array-like state object
- * @returns {ArrayBuffer} Compacted bit array
- */
-GOL.compact = function(state) {
-    var compact = new Uint8Array(state.length / 8);
-    for (var i = 0; i < state.length; i++) {
-        var ii = Math.floor(i / 8),
-            shift = i % 8,
-            bit = state[i] ? 1 : 0;
-        compact[ii] |= bit << shift;
-    }
-    return compact.buffer;
-};
-
-/**
- * Expand a simulation state from a bit array.
- * @param {ArrayBuffer} compact Compacted bit array
- * @returns {Object} Array-like state object
- */
-GOL.expand = function(buffer) {
-    var compact = new Uint8Array(buffer),
-        state = new Uint8Array(compact.length * 8);
-    for (var i = 0; i < state.length; i++) {
-        var ii = Math.floor(i / 8),
-            shift = i % 8;
-        state[i] = (compact[ii] >> shift) & 1;
-    }
-    return state;
-};
 
 /**
  * Set the entire simulation state at once.
@@ -145,13 +102,6 @@ GOL.prototype.swap = function() {
  * @returns {GOL} this
  */
 GOL.prototype.step = function() {
-    // if (GOL.now() != this.lasttick) {
-    //     //$('.fps').text(this.fps + ' FPS');
-    //     this.lasttick = GOL.now();
-    //     this.fps = 0;
-    // } else {
-    //     this.fps++;
-    // }
     var gl = this.igloo.gl;
     this.framebuffers.step.attach(this.textures.back);
     this.textures.front.bind(0);
