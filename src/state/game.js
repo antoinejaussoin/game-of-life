@@ -8,7 +8,7 @@ import shapes from '../engines/shapes';
 
 export default class Game {
   @observable running = false;
-  @observable size = 1024 * 2;
+  @observable size = 1024 / 8;
   @observable fill = 50;
   @observable engine = null;
   @observable engineType = null;
@@ -17,7 +17,7 @@ export default class Game {
   @observable pixelated = true;
 
   constructor() {
-    this.engineType = this.engineTypes[0];
+    this.engineType = this.engineTypes[2];
     this.variation = this.variations[0];
     this.changeSize(this.size);
   }

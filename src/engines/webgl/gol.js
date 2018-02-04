@@ -40,7 +40,7 @@ export default function GOL(canvas, scale) {
     this.framebuffers = {
         step: igloo.framebuffer()
     };
-    this.setRandom();
+    //this.setRandom();
 }
 
 /**
@@ -92,8 +92,19 @@ GOL.prototype.set = function(state) {
     var rgba = new Uint8Array(this.statesize[0] * this.statesize[1] * 4);
     for (var i = 0; i < state.length; i++) {
         var ii = i * 4;
-        rgba[ii + 0] = rgba[ii + 1] = rgba[ii + 2] = state[i] ? 255 : 0;
-        rgba[ii + 3] = 255;
+        if (state[i]) {
+            rgba[ii]     = 37;
+            rgba[ii + 1] = 168;
+            rgba[ii + 2] = 45;
+            rgba[ii + 3] = 255;
+        } else {
+            rgba[ii]     = 255;
+            rgba[ii + 1] = 240;
+            rgba[ii + 2] = 237;
+            rgba[ii + 3] = 255;
+        }
+        // rgba[ii + 0] = rgba[ii + 1] = rgba[ii + 2] = state[i] ? 255 : 0;
+        // rgba[ii + 3] = 255;
     }
     this.textures.front.subset(rgba, 0, 0, this.statesize[0], this.statesize[1]);
     return this;

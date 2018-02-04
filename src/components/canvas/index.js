@@ -15,20 +15,13 @@ class Canvas extends Component {
     const canvas = this.canvas;
     engine.register(canvas);
     engine.initToRandom(30);
-    // const context = canvas.getContext('2d');
-    // context.imageSmoothingEnabled = true;
-    // canvas.height = size;
-    // canvas.width = size;
-    // this.imageData = context.getImageData(0, 0, size, size);
     engine.draw();
-    //context.putImageData(this.imageData, 0, 0);
-
+    
     const next = () => {
       const engine = this.props.engine;
       if (this.props.running) {
-        engine.draw();
-        //context.putImageData(this.imageData, 0, 0);
         engine.play();
+        engine.draw();
       }
       window.requestAnimationFrame(next);
     };
@@ -41,17 +34,9 @@ class Canvas extends Component {
       const engine = nextProps.engine;
       const canvas = this.canvas;
       const size = engine.size;
-      // const context = canvas.getContext('2d');
-      // context.imageSmoothingEnabled = false;
-      // canvas.height = size;
-      // canvas.width = size;
-      console.log('canvas: ', canvas);
       engine.register(canvas);
       engine.initToRandom(30);
-      
-      //this.imageData = context.getImageData(0, 0, size, size);
       engine.draw();
-      //context.putImageData(this.imageData, 0, 0);
     }
   }
 
@@ -61,7 +46,7 @@ class Canvas extends Component {
       this.props.onClick(coords);
     }
   }
-//style={{ imageRendering: this.props.pixelated ? 'pixelated': 'auto' }}
+
   render() {
     return (
       <div className="container">
@@ -69,7 +54,7 @@ class Canvas extends Component {
           className="board"
           onClick={this.onCanvasClick}
           ref={(canvas) => this.canvas = canvas }
-          
+          style={{ imageRendering: this.props.pixelated ? 'pixelated': 'auto' }}
         />
       </div>
     );
