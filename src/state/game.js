@@ -1,4 +1,5 @@
-import { observable, computed, action, extendObservable } from 'mobx';
+import { observable, computed, action, extendObservable, reaction } from 'mobx';
+import debounce from 'lodash/debounce';
 import BlackAndWhiteEngine from '../engines/bw-engine';
 import ColorEngine from '../engines/color-engine';
 import WebGlEngine from '../engines/webgl/webgl-engine';
@@ -7,8 +8,8 @@ import shapes from '../engines/shapes';
 
 export default class Game {
   @observable running = false;
-  @observable size = 1024 / 8;
-  @observable fill = 50;
+  @observable size = 2048;
+  @observable fill = 20;
   @observable engine = null;
   @observable engineType = null;
   @observable variation = null;
@@ -19,6 +20,19 @@ export default class Game {
     this.engineType = this.engineTypes[2];
     this.variation = this.variations[0];
     this.changeSize(this.size);
+    this.reset();
+
+    const debouncedReset = debounce(this.reset.bind(this), 800);
+
+    reaction(
+      () => ({
+        engineType: this.engineType,
+        fill: this.fill,
+        size: this.size,
+        variation: this.variation 
+      }),
+      debouncedReset
+    );
   }
 
   @action start() {
@@ -31,12 +45,10 @@ export default class Game {
 
   @action changeSize(size) {
     this.size = size;
-    this.reset();
   }
 
   @action changeFill(fill) {
     this.fill = fill;
-    this.reset();
   }
 
   @action reset() {
@@ -45,14 +57,17 @@ export default class Game {
     extendObservable(this.engine, { generation: 0});
   }
 
+  @action clear() {
+    this.engine.initToBlank();
+    this.engine.draw();
+  }
+
   @action changeEngineType(engineType) {
     this.engineType = engineType;
-    this.reset();
   }
 
   @action changeVariation(variation) {
     this.variation = variation;
-    this.reset();
   }
 
   @action changeShape(shape) {
