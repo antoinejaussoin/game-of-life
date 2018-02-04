@@ -9,7 +9,7 @@ function relMouseCoords(event){
       totalOffsetX += currentElement.offsetLeft;
       totalOffsetY += currentElement.offsetTop;
   }
-  while (currentElement = currentElement.offsetParent)
+  while (currentElement = currentElement.offsetParent) //eslint-disable-line
 
   canvasX = event.pageX - totalOffsetX;
   canvasY = event.pageY - totalOffsetY;
