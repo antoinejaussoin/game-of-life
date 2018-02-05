@@ -1,6 +1,9 @@
 import { classic } from '../variations';
 import GOL from './gol';
 
+const aliveColour = { r: 70, g: 142, b: 64 };
+const deadColour = { r: 252, g: 209, b: 209 };
+
 export default class WebGlEngine {
   isWebgl = true;
 
@@ -23,7 +26,7 @@ export default class WebGlEngine {
       this.canvas = canvas;
       canvas.height = this.size;
       canvas.width = this.size;
-      this.gol = new GOL(canvas, 1, this._variation);
+      this.gol = new GOL(canvas, 1, this._variation, false, aliveColour, deadColour);
   }
 
   inject(x, y, shape) {
@@ -34,7 +37,6 @@ export default class WebGlEngine {
       }
     }
   }
-  
   
   play() {
     this.gol.step();

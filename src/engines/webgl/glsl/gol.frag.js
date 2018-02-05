@@ -1,7 +1,8 @@
-// Taken from https://github.com/skeeto/webgl-game-of-life
+// Inspired from https://github.com/skeeto/webgl-game-of-life
 
-export default (variation, deadColour, aliveColour) => `#ifdef GL_ES
-precision highp float;
+export default (variation, deadColour, aliveColour, useAge) => `
+#ifdef GL_ES
+  precision highp float;
 #endif
 
 uniform sampler2D state;
@@ -46,12 +47,21 @@ void main() {
   ${variation}
 
   int prev = get(vec2(0.0, 0.0));
-  float alpha = texture2D(state, gl_FragCoord.xy / scale).a;
-  float newAlpha = calculateAlpha(alpha, result, prev);
 
-  if (result == 1 || (result == -1 && prev == 1)) {
-    gl_FragColor = vec4(ar, ag, ab, 1.0);
-  } else if (result == 0 || (result == -1 && prev == 0)) {
-    gl_FragColor = vec4(dr, dg, db, newAlpha);
-  }
+  ${useAge ? `
+    float alpha = texture2D(state, gl_FragCoord.xy / scale).a;
+    float newAlpha = calculateAlpha(alpha, result, prev);
+
+    if (result == 1 || (result == -1 && prev == 1)) {
+      gl_FragColor = vec4(ar, ag, ab, 1.0);
+    } else if (result == 0 || (result == -1 && prev == 0)) {
+      gl_FragColor = vec4(dr, dg, db, newAlpha);
+    }
+  `: `
+    if (result == 1 || (result == -1 && prev == 1)) {
+      gl_FragColor = vec4(ar, ag, ab, 1.0);
+    } else if (result == 0 || (result == -1 && prev == 0)) {
+      gl_FragColor = vec4(dr, dg, db, 1.0);
+    }
+  `}
 }`;

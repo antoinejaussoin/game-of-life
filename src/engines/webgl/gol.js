@@ -5,15 +5,14 @@ import quadVert from './glsl/quad.vert';
 import copyFrag from './glsl/copy.frag';
 import golFrag from './glsl/gol.frag';
 
-const aliveColour = { r: 70, g: 142, b: 64 };
-const deadColour = { r: 244, g: 86, b: 66 };
-
 /**
  * Game of Life simulation and display.
  * @param {HTMLCanvasElement} canvas Render target
  * @param {number} [scale] Size of each cell in pixels (power of 2)
  */
-export default function GOL(canvas, scale, variation) {
+export default function GOL(canvas, scale, variation, useAge, aliveColour, deadColour) {
+    this.aliveColour = aliveColour;
+    this.deadColour = deadColour;
     var igloo = this.igloo = new Igloo(canvas);
     var gl = igloo.gl;
     if (gl == null) {
@@ -28,7 +27,7 @@ export default function GOL(canvas, scale, variation) {
     gl.disable(gl.DEPTH_TEST);
     this.programs = {
         copy: igloo.program(quadVert, copyFrag),
-        gol:  igloo.program(quadVert, golFrag(variation.webGl, deadColour, aliveColour))
+        gol:  igloo.program(quadVert, golFrag(variation.webGl, deadColour, aliveColour, useAge))
     };
     this.buffers = {
         quad: igloo.array(Igloo.QUAD2)
@@ -53,7 +52,7 @@ GOL.prototype.set = function(state) {
     var rgba = new Uint8Array(this.statesize[0] * this.statesize[1] * 4);
     for (var i = 0; i < state.length; i++) {
         var ii = i * 4;
-        const colour = state[i] ? aliveColour : deadColour;
+        const colour = state[i] ? this.aliveColour : this.deadColour;
         rgba[ii]     = colour.r;
         rgba[ii + 1] = colour.g;
         rgba[ii + 2] = colour.b;
@@ -142,7 +141,7 @@ GOL.prototype.draw = function() {
  * @returns {GOL} this
  */
 GOL.prototype.poke = function(x, y, state) {
-    const colour = state ? aliveColour : deadColour;
+    const colour = state ? this.aliveColour : this.deadColour;
     this.textures.front.subset([colour.r, colour.g, colour.b, 255], x, y, 1, 1);
     return this;
 };

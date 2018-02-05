@@ -3,6 +3,7 @@ import debounce from 'lodash/debounce';
 import BlackAndWhiteEngine from '../engines/bw-engine';
 import ColorEngine from '../engines/color-engine';
 import WebGlEngine from '../engines/webgl/webgl-engine';
+import WebGlColorEngine from '../engines/webgl/webgl-color-engine';
 import { classic, highLife } from '../engines/variations';
 import shapes from '../engines/shapes';
 
@@ -18,7 +19,7 @@ export default class Game {
   @observable speed = 1;
 
   constructor() {
-    this.engineType = this.engineTypes[2];
+    this.engineType = this.engineTypes[3];
     this.variation = this.variations[0];
     this.reset();
 
@@ -105,7 +106,8 @@ export default class Game {
     return [
       { value: 'BW', label: 'Black & White', type: BlackAndWhiteEngine },
       { value: 'Color', label: 'Colour', type: ColorEngine },
-      { value: 'WebGL', label: 'WebGL', type: WebGlEngine }
+      { value: 'WebGL', label: 'WebGL', type: WebGlEngine },
+      { value: 'WebGLColor', label: 'WebGL Colour', type: WebGlColorEngine }
     ]
   }
 
