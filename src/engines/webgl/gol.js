@@ -5,8 +5,8 @@ import quadVert from './glsl/quad.vert';
 import copyFrag from './glsl/copy.frag';
 import golFrag from './glsl/gol.frag';
 
-const aliveColour = { r: 37, g: 168, b: 45 };
-const deadColour = { r: 255, g: 240, b: 237 };
+const aliveColour = { r: 70, g: 142, b: 64 };
+const deadColour = { r: 244, g: 86, b: 66 };
 
 /**
  * Game of Life simulation and display.

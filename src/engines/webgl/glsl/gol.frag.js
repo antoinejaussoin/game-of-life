@@ -23,19 +23,11 @@ int get(vec2 offset) {
 }
 
 float calculateAlpha(float currentAlpha, int result, int prev) {
-  if (currentAlpha == 0.0) {
-    return 0.0;
+  if (currentAlpha <= 0.1) {
+    return 0.1;
   }
 
-  if (result == 1 || (result == -1 && prev == 1)) {
-    return 1.0;
-  }
-
-  if (result == -1 || result == prev) {
-    return currentAlpha - 0.005;
-  }
-
-  return 1.0;
+  return currentAlpha - 0.005;
 }
 
 void main() {
