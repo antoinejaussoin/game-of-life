@@ -18,8 +18,11 @@ class Canvas extends Component {
     
     const next = () => {
       const engine = this.props.engine;
+      const speed = this.props.speed;
       if (this.props.running) {
-        engine.play();
+        for (let i = 0; i < speed; i++) {
+          engine.play();
+        }
         engine.draw();
       }
       window.requestAnimationFrame(next);

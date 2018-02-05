@@ -46,6 +46,7 @@ class App extends Component {
           <Button onClick={() => game.clear() }>Clear</Button>
           <Slider label={`Size ${game.size}px`} min={5} max={14} value={game.sizePower} onChange={v => game.changeSize(v)} />
           <Slider label={`Fill ${game.fill}%`} min={0} max={100} value={game.fill} onChange={v => game.changeFill(v)} />
+          <Slider label={`Speed ${game.speed}x`} min={1} max={100} value={game.speed} onChange={v => game.changeSpeed(v)} />
           <Dropdown label="Engine" value={game.engineType} options={game.engineTypes} onChange={v => game.changeEngineType(v)} />
           <Dropdown label="Variation" value={game.variation} options={game.variations} onChange={v => game.changeVariation(v)} />
           <Checkbox label="Pixelated" value={game.pixelated} onChange={() => game.togglePixelated()} />
@@ -58,6 +59,7 @@ class App extends Component {
               engine={game.engine}
               running={game.running}
               pixelated={game.pixelated}
+              speed={game.speed}
               onClick={coords => game.insertShape(coords)}
             />
           </Left>

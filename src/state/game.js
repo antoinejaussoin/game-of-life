@@ -15,6 +15,7 @@ export default class Game {
   @observable variation = null;
   @observable shape = null;
   @observable pixelated = true;
+  @observable speed = 1;
 
   constructor() {
     this.engineType = this.engineTypes[2];
@@ -71,6 +72,10 @@ export default class Game {
 
   @action changeShape(shape) {
     this.shape = shape;
+  }
+
+  @action changeSpeed(speed) {
+    this.speed = speed;
   }
 
   @action togglePixelated() {
