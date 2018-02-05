@@ -1,40 +1,65 @@
 // Taken from https://github.com/skeeto/webgl-game-of-life
 
 export default (variation, deadColour, aliveColour) => `#ifdef GL_ES
-precision mediump float;
+precision highp float;
 #endif
 
 uniform sampler2D state;
 uniform vec2 scale;
 
-int get(vec2 offset) {
-    if (texture2D(state, (gl_FragCoord.xy + offset) / scale).r == ${deadColour.r}.0/255.0) {
-        return 0;
-    }
+float dr = ${deadColour.r}.0/255.0;
+float dg = ${deadColour.g}.0/255.0;
+float db = ${deadColour.b}.0/255.0;
+float ar = ${aliveColour.r}.0/255.0;
+float ag = ${aliveColour.g}.0/255.0;
+float ab = ${aliveColour.b}.0/255.0;
 
-    return 1;
+int get(vec2 offset) {
+  if (texture2D(state, (gl_FragCoord.xy + offset) / scale).r == dr) {
+    return 0;
+  }
+
+  return 1;
+}
+
+float calculateAlpha(float currentAlpha, int result, int prev) {
+  if (currentAlpha == 0.0) {
+    return 0.0;
+  }
+
+  if (result == 1 || (result == -1 && prev == 1)) {
+    return 1.0;
+  }
+
+  if (result == -1 || result == prev) {
+    return currentAlpha - 0.005;
+  }
+
+  return 1.0;
 }
 
 void main() {
-    int sum =
-        get(vec2(-1.0, -1.0)) +
-        get(vec2(-1.0,  0.0)) +
-        get(vec2(-1.0,  1.0)) +
-        get(vec2( 0.0, -1.0)) +
-        get(vec2( 0.0,  1.0)) +
-        get(vec2( 1.0, -1.0)) +
-        get(vec2( 1.0,  0.0)) +
-        get(vec2( 1.0,  1.0));
+  int sum =
+    get(vec2(-1.0, -1.0)) +
+    get(vec2(-1.0,  0.0)) +
+    get(vec2(-1.0,  1.0)) +
+    get(vec2( 0.0, -1.0)) +
+    get(vec2( 0.0,  1.0)) +
+    get(vec2( 1.0, -1.0)) +
+    get(vec2( 1.0,  0.0)) +
+    get(vec2( 1.0,  1.0));
 
-    int result = 0;
+  int result = 0;
 
-    ${variation}
+  ${variation}
 
-    if (result == 1) {
-        gl_FragColor = vec4(${aliveColour.r}.0/255.0, ${aliveColour.g}.0/255.0, ${aliveColour.b}.0/255.0, 1.0);
-    } else if (result == 0) {
-        gl_FragColor = vec4(${deadColour.r}.0/255.0, ${deadColour.g}.0/255.0, ${deadColour.b}.0/255.0, 1.0);
-    } else if (result == -1) {
-        gl_FragColor = texture2D(state, (gl_FragCoord.xy) / scale);
-    }
+  int prev = get(vec2(0.0, 0.0));
+  float alpha = texture2D(state, gl_FragCoord.xy / scale).a;
+  float newAlpha = calculateAlpha(alpha, result, prev);
+
+  if (result == 1 || (result == -1 && prev == 1)) {
+    gl_FragColor = vec4(ar, ag, ab, 1.0);
+  } else if (result == 0 || (result == -1 && prev == 0)) {
+    gl_FragColor = vec4(dr, dg, db, newAlpha);
+  }
 }`;
