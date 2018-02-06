@@ -2,7 +2,7 @@
 
 export default (variation, deadColour, aliveColour, useAge) => `
 #ifdef GL_ES
-  precision highp float;
+  precision mediump float;
 #endif
 
 uniform sampler2D state;
