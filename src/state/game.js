@@ -6,6 +6,7 @@ import WebGlEngine from '../engines/webgl/webgl-engine';
 import WebGlColorEngine from '../engines/webgl/webgl-color-engine';
 import { classic, highLife } from '../engines/variations';
 import shapes from '../engines/shapes';
+import scenarios from '../engines/scenarios';
 
 export default class Game {
   @observable running = false;
@@ -15,12 +16,14 @@ export default class Game {
   @observable engineType = null;
   @observable variation = null;
   @observable shape = null;
+  @observable scenario = null;
   @observable pixelated = true;
   @observable speed = 1;
 
   constructor() {
     this.engineType = this.engineTypes[3];
     this.variation = this.variations[0];
+    this.scenario = this.scenarios[0];
     this.reset();
 
     const debouncedReset = debounce(this.reset.bind(this), 800);
@@ -30,7 +33,7 @@ export default class Game {
         engineType: this.engineType,
         fill: this.fill,
         size: this.size,
-        variation: this.variation 
+        variation: this.variation
       }),
       debouncedReset
     );
@@ -73,6 +76,13 @@ export default class Game {
 
   @action changeShape(shape) {
     this.shape = shape;
+  }
+
+  @action changeScenario(scenario) {
+    this.stop();
+    this.scenario = scenario;
+    this.scenario.init(this.engine);
+    this.engine.draw();
   }
 
   @action changeSpeed(speed) {
@@ -120,5 +130,13 @@ export default class Game {
 
   get shapes() {
     return shapes;
+  }
+
+  get scenarios() {
+    return scenarios.map(s => ({
+      value: s.name,
+      label: s.name,
+      init: s.init
+    }));
   }
 }

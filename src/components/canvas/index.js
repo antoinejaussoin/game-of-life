@@ -11,9 +11,10 @@ class Canvas extends Component {
   }
   componentDidMount() {
     const engine = this.props.engine;
+    const scenario = this.props.scenario;
     const canvas = this.activeCanvas;
     engine.register(canvas);
-    engine.initToRandom();
+    scenario.init(engine);
     engine.draw();
     
     const next = () => {
@@ -34,9 +35,10 @@ class Canvas extends Component {
   componentWillReceiveProps(nextProps) {
     if (this.props.engine !== nextProps.engine) {
       const engine = nextProps.engine;
+      const scenario = nextProps.scenario;
       const canvas = engine.isWebgl ? this.webGlCanvas : this.canvas;
       engine.register(canvas);
-      engine.initToRandom();
+      scenario.init(engine);
       engine.draw();
     }
   }

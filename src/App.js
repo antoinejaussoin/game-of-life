@@ -49,6 +49,7 @@ class App extends Component {
           <Slider label={`Speed ${game.speed}x`} min={1} max={100} value={game.speed} onChange={v => game.changeSpeed(v)} />
           <Dropdown label="Engine" value={game.engineType} options={game.engineTypes} onChange={v => game.changeEngineType(v)} />
           <Dropdown label="Variation" value={game.variation} options={game.variations} onChange={v => game.changeVariation(v)} />
+          <Dropdown label="Scenario" value={game.scenario} options={game.scenarios} onChange={v => game.changeScenario(v)} />
           <Checkbox label="Pixelated" value={game.pixelated} onChange={() => game.togglePixelated()} />
           <Counter count={game} />
           <FPSStats isActive={true} right={1} />
@@ -60,6 +61,7 @@ class App extends Component {
               running={game.running}
               pixelated={game.pixelated}
               speed={game.speed}
+              scenario={game.scenario}
               onClick={coords => game.insertShape(coords)}
             />
           </Left>

@@ -161,3 +161,20 @@ GOL.prototype.get = function() {
     return state;
 };
 
+GOL.prototype.toArray = function() {
+    var gl = this.igloo.gl, w = this.statesize[0], h = this.statesize[1];
+    const result = new Array(w);
+    this.framebuffers.step.attach(this.textures.front);
+    var rgba = new Uint8Array(w * h * 4);
+    gl.readPixels(0, 0, w, h, gl.RGBA, gl.UNSIGNED_BYTE, rgba);
+
+    for (let i = 0; i < w; i++) {
+        const row = new Array(w);
+        result[i] = row;
+        for (let j = 0; j < w; j++) {
+            row[j] = rgba[(i * w + j) * 4] === this.deadColour.r ? 0 : 1;
+        }
+    }
+
+    return result;
+}

@@ -37,6 +37,10 @@ export default class WebGlEngine {
       }
     }
   }
+
+  set(x, y, value) {
+    this.gol.poke(x, y, value);
+  }
   
   play() {
     this.gol.step();
@@ -48,6 +52,6 @@ export default class WebGlEngine {
   }
 
   toArray() {
-    return this._gridA;
+    return this.gol.toArray();
   }
 }

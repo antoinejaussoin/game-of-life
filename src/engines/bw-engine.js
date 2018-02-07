@@ -56,6 +56,10 @@ export default class BlackAndWhiteEngine {
       }
     }
   }
+
+  set(x, y, value) {
+    this._gridA[x][y] = value;
+  }
   
   _safeGet(grid, x, y) {
     return grid[(x + this.size) % this.size][(y + this.size) % this.size];
