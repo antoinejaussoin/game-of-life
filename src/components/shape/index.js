@@ -15,22 +15,22 @@ const Board = styled('div')`
 `;
 
 const Row = styled('div')`
-  display: flex;
   width: 100%;
 `;
 
 const width = (props) => {
   if (props.count > 10) {
-    return Math.floor(100/props.count)+'%';
+    return (99/props.count)+'%';
   }
   return '10px';
 }
 
 const Cell = styled('div')`
+  float: left;
   width: ${width};
   padding-bottom: ${width};
   background-color: ${props => props.value ? 'black': 'white'};
-  border: 1px solid grey;
+  outline: 1px solid grey;
 `;
 
 const Shape = ({ name, shape, selected, onClick }) => (
