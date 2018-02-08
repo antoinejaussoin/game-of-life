@@ -47,6 +47,15 @@ export default class Game {
     this.running = false;
   }
 
+  @action step() {
+    this.engine.play();
+    this.engine.draw();
+  }
+
+  @computed get canRunStep() {
+    return this.running === false;
+  }
+
   @action changeSize(sizePower) {
     this.sizePower = sizePower;
   }
