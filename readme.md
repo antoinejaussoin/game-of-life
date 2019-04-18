@@ -2,7 +2,7 @@
 
 If you don't know what the Game of Life is yet, please look at the [Wikipedia article](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life).
 
-You can see this live [on my website](http://www.jaussoin.com/gol/index.html). I shall find a domain for that soon.
+You can see this live [on my website](http://gol.jaussoin.com). I shall find a domain for that soon.
 
 ## Run on your machine
 
