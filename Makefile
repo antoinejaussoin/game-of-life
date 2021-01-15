@@ -7,6 +7,9 @@ publish:
 	docker push antoinejaussoin/game-of-life:${VERSION}
 	docker push antoinejaussoin/game-of-life:latest
 
+run: build
+	docker run -p 3000:80 antoinejaussoin/game-of-life:latest 
+
 build-frontend:
 	docker build -f ./Dockerfile \
 	-t antoinejaussoin/game-of-life:${VERSION} \
