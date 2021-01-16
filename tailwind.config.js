@@ -2,7 +2,7 @@ const production = process.env.NODE_ENV === "production";
 
 module.exports = {
   purge: {
-    content: ["./src/**/*.svelte"],
+    content: ["./src/**/*.svelte", "./node_modules/@fouita/**/*.js"],
     enabled: production,
   },
   theme: {

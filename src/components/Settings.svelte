@@ -11,7 +11,6 @@
     class="flex-1 mt-5 mx-6"
     min={0}
     max={1024}
-    color="pink-600"
     tooltip
     bind:value={$size}
     label="Size"
@@ -20,7 +19,6 @@
     class="flex-1 mt-5 mx-6"
     min={0}
     max={100}
-    color="pink-600"
     bind:value={$fill}
     label="Fill"
   />
@@ -28,7 +26,6 @@
     class="flex-1 mt-5 mx-6"
     min={0}
     max={100}
-    color="pink-600"
     bind:value={$speed}
     label="Speed"
   />

@@ -19,6 +19,8 @@ COPY --chown=node:node ./public ./public
 COPY --chown=node:node ./types ./types
 COPY --chown=node:node ./snowpack.config.js ./snowpack.config.js
 COPY --chown=node:node ./svelte.config.js ./svelte.config.js
+COPY --chown=node:node ./tailwind.config.js ./tailwind.config.js
+COPY --chown=node:node ./postcss.config.js ./postcss.config.js
 COPY --chown=node:node ./tsconfig.json ./tsconfig.json
 
 RUN yarn build
