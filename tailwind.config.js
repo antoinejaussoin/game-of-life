@@ -1,4 +1,4 @@
-const production = true;
+const production = false;
 
 module.exports = {
   purge: {
@@ -7,17 +7,17 @@ module.exports = {
   },
   theme: {
     extend: {
-      colors: {
-        orange: {
-          500: "#ff3e00",
-        },
-      },
+      // colors: {
+      //   orange: {
+      //     500: "#ff3e00",
+      //   },
+      // },
     },
   },
   variants: {},
   plugins: [],
   future: {
-    purgeLayersByDefault: true,
-    removeDeprecatedGapUtilities: true,
+    // purgeLayersByDefault: true,
+    // removeDeprecatedGapUtilities: true,
   },
 };

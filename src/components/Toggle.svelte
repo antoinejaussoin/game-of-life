@@ -1,0 +1,29 @@
+<script lang="typescript">
+  // https://tailwindcomponents.com/component/toggle
+  export let value = false;
+  export let label = "";
+
+  function handleClick() {
+    value = !value;
+  }
+
+  let customClasses: string;
+  $: customClasses = value
+    ? "absolute block w-4 h-4 mt-1 ml-1 rounded-full shadow inset-y-0 left-0 focus-within:shadow-outline transition-transform duration-300 ease-in-out bg-purple-600 transform translate-x-full"
+    : "absolute block w-4 h-4 mt-1 ml-1 bg-white rounded-full shadow inset-y-0 left-0 focus-within:shadow-outline transition-transform duration-300 ease-in-out";
+</script>
+
+<label for="checkbox" class="mt-3 inline-flex items-center cursor-pointer">
+  <span class="relative">
+    <span class="block w-10 h-6 bg-gray-400 rounded-full shadow-inner" />
+    <span class={customClasses}>
+      <input
+        id="checkbox"
+        type="checkbox"
+        class="absolute opacity-0 w-0 h-0"
+        on:click={handleClick}
+      />
+    </span>
+  </span>
+  <span class="ml-3 text-sm">{label}</span>
+</label>
