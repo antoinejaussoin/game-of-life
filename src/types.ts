@@ -14,3 +14,7 @@ export interface Colour {
   g: number;
   b: number;
 }
+
+export interface Settings {
+  pixelated: boolean;
+}
