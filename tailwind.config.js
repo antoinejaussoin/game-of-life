@@ -1,4 +1,4 @@
-const production = false;
+const production = process.env.NODE_ENV === "production";
 
 module.exports = {
   purge: {

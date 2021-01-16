@@ -1,7 +1,9 @@
 {
+  "name": "game-of-life",
+  "author": "Antoine Jaussoin",
   "scripts": {
     "start": "snowpack dev",
-    "build": "snowpack build",
+    "build": "NODE_ENV=production snowpack build",
     "test": "web-test-runner \"src/**/*.test.ts\""
   },
   "dependencies": {
