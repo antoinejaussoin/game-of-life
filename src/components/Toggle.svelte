@@ -2,6 +2,8 @@
   // https://tailwindcomponents.com/component/toggle
   export let value = false;
   export let label = "";
+  let clazz: string;
+  export { clazz as class };
 
   function handleClick() {
     value = !value;
@@ -20,7 +22,7 @@
       <input
         id="checkbox"
         type="checkbox"
-        class="absolute opacity-0 w-0 h-0"
+        class={`absolute opacity-0 w-0 h-0 ${clazz || ""}`}
         on:click={handleClick}
       />
     </span>

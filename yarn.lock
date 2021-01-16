@@ -38,6 +38,18 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
+"@fouita/slider@^0.0.3":
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/@fouita/slider/-/slider-0.0.3.tgz#b49ccbb66426fd3aff3b1bbafe7591e2470e6074"
+  integrity sha512-0DPV36+zEu/7OBQRv6y579nZyLPk91uIx6dlgYr+KQRlhh5Lq5+uSLMfjq43uO3V9Cjr6zCKFJ4IehhTSNIiqA==
+  dependencies:
+    "@fouita/tooltip" "0.0.1"
+
+"@fouita/tooltip@0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@fouita/tooltip/-/tooltip-0.0.1.tgz#854a81776dc6b2d02d401a3b2591e3375315862e"
+  integrity sha512-zXlqD/obXQIBE5DANSXtViE4IdSj2Mrj8VxF/WmjDgU6MPL1KXjimUWLrsOaLf6hxR7xYr+uoO0ztOqoritQtA==
+
 "@fullhuman/postcss-purgecss@^3.0.0":
   version "3.1.3"
   resolved "https://registry.yarnpkg.com/@fullhuman/postcss-purgecss/-/postcss-purgecss-3.1.3.tgz#47af7b87c9bfb3de4bc94a38f875b928fffdf339"
