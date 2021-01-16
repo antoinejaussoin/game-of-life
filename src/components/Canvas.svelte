@@ -2,6 +2,7 @@
   import { classic } from "../engines/variations";
   import WebGlColorEngine from "../engines/webgl/webgl-color-engine";
   import { onMount } from "svelte";
+  import { pixelated } from "../stores/store";
 
   let board: HTMLCanvasElement;
   const engine = new WebGlColorEngine(128, 20, classic);
@@ -31,16 +32,16 @@
   });
 </script>
 
-<canvas
-  class="board"
-  bind:this={board}
-  style="pixelated': 'auto', display: 'block'"
-/>
+<canvas class="board" bind:this={board} class:pixelated={$pixelated} />
 
 <style>
   .board {
     width: 1000px;
     height: 1000px;
     border: 3px solid red;
+  }
+
+  .pixelated {
+    image-rendering: pixelated;
   }
 </style>
