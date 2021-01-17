@@ -45,11 +45,17 @@
 <div class="flex flex-col h-full">
   <span>{generation}</span>
   <canvas
-    class="board flex-1 object-contain shadow-2xl mb-10"
+    class="flex-1 object-contain mb-3"
     bind:this={board}
     class:pixelated={$pixelated}
   />
 </div>
 
 <style>
+  .pixelated {
+    -ms-interpolation-mode: nearest-neighbor;
+    image-rendering: auto;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+  }
 </style>
