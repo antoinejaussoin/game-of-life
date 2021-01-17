@@ -4,15 +4,15 @@
   import Settings from "./components/Settings.svelte";
 </script>
 
-<div class="App center">
+<div class="flex flex-col h-screen">
   <Header />
   <Settings />
-  <Canvas />
+  <div class="flex-1">
+    <Canvas />
+  </div>
 </div>
 
 <style>
   :global(body) {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
   }
 </style>

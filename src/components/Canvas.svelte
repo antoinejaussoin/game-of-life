@@ -42,17 +42,14 @@
   });
 </script>
 
-<span>{generation}</span>
-<canvas class="board" bind:this={board} class:pixelated={$pixelated} />
+<div class="flex flex-col h-full">
+  <span>{generation}</span>
+  <canvas
+    class="board flex-1 object-contain shadow-2xl mb-10"
+    bind:this={board}
+    class:pixelated={$pixelated}
+  />
+</div>
 
 <style>
-  .board {
-    width: 1000px;
-    height: 1000px;
-    border: 3px solid red;
-  }
-
-  .pixelated {
-    image-rendering: pixelated;
-  }
 </style>

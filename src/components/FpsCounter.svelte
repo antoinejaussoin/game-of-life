@@ -1,5 +1,5 @@
 <script lang="typescript">
-  const times: number[] = [];
+  let times: number[] = [];
   let fps;
 
   function refreshLoop() {
@@ -10,6 +10,7 @@
       }
       times.push(now);
       fps = times.length;
+      times = times;
       refreshLoop();
     });
   }

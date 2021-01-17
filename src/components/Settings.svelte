@@ -12,7 +12,7 @@
   import FpsCounter from "./FpsCounter.svelte";
 </script>
 
-<div class="flex md-5 border-1 p-2 pb-5">
+<div class="flex md-5 border-1 p-2 pb-5 shadow-lg mb-8">
   <Toggle class="flex-1" label="Playing" bind:value={$playing} />
   <Toggle class="flex-1" label="Pixelated" bind:value={$pixelated} />
   <Slider
