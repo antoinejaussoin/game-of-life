@@ -1,7 +1,8 @@
 import type { Settings } from "src/types";
-import { writable } from "svelte/store";
+import { derived, writable } from "svelte/store";
 
 export const pixelated = writable(false);
-export const size = writable(128);
+export const sizePower = writable(7);
 export const fill = writable(20);
 export const speed = writable(1);
+export const size = derived(sizePower, ($sizePower) => Math.pow(2, $sizePower));

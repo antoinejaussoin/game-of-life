@@ -2,10 +2,20 @@
   import { classic } from "../engines/variations";
   import WebGlColorEngine from "../engines/webgl/webgl-color-engine";
   import { onMount } from "svelte";
-  import { pixelated } from "../stores/store";
+  import { pixelated, size, fill, speed } from "../stores/store";
 
   let board: HTMLCanvasElement;
-  const engine = new WebGlColorEngine(128, 20, classic);
+  let engine: WebGlColorEngine;
+  let generation: number = 0;
+
+  $: {
+    engine = new WebGlColorEngine($size, $fill, classic);
+    if (board) {
+      engine.register(board);
+      engine.initToRandom();
+      engine.draw();
+    }
+  }
 
   onMount(() => {
     engine.register(board);
@@ -13,11 +23,11 @@
     engine.draw();
 
     const next = () => {
-      const speed = 1; // param
       if (true) {
         // running this.props.running) {
-        for (let i = 0; i < speed; i++) {
+        for (let i = 0; i < $speed; i++) {
           engine.play();
+          generation = engine.generation;
         }
         engine.draw();
       }
@@ -32,6 +42,7 @@
   });
 </script>
 
+<span>{generation}</span>
 <canvas class="board" bind:this={board} class:pixelated={$pixelated} />
 
 <style>
