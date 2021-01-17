@@ -1,6 +1,6 @@
-import type { Settings } from "src/types";
 import { derived, writable } from "svelte/store";
 
+export const playing = writable(true);
 export const pixelated = writable(false);
 export const sizePower = writable(7);
 export const fill = writable(20);

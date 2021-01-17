@@ -2,7 +2,7 @@
   import { classic } from "../engines/variations";
   import WebGlColorEngine from "../engines/webgl/webgl-color-engine";
   import { onMount } from "svelte";
-  import { pixelated, size, fill, speed } from "../stores/store";
+  import { pixelated, size, fill, speed, playing } from "../stores/store";
 
   let board: HTMLCanvasElement;
   let engine: WebGlColorEngine;
@@ -23,7 +23,7 @@
     engine.draw();
 
     const next = () => {
-      if (true) {
+      if ($playing) {
         // running this.props.running) {
         for (let i = 0; i < $speed; i++) {
           engine.play();
