@@ -1,0 +1,34 @@
+<script lang="typescript">
+  import Toggle from "./Toggle.svelte";
+  import { pixelated, sizePower, fill, speed, playing } from "../stores/store";
+  import Slider from "./Slider.svelte";
+</script>
+
+<div class="flex md-5 border-1 shadow-lg mb-8 space-x-5 p-5">
+  <Toggle class="flex-1" label="Playing" bind:value={$playing} />
+  <Toggle class="flex-1" label="Pixelated" bind:value={$pixelated} />
+  <Slider
+    class="flex-1 mt-5 mx-6"
+    min={0}
+    max={14}
+    bind:value={$sizePower}
+    label="Size"
+    format={(size) => `${Math.pow(2, size)}px`}
+  />
+  <Slider
+    class="flex-1 mt-5 mx-6"
+    min={0}
+    max={100}
+    bind:value={$fill}
+    label="Fill"
+    format={(fill) => `${fill}%`}
+  />
+  <Slider
+    class="flex-1 mt-5 mx-6"
+    min={1}
+    max={100}
+    bind:value={$speed}
+    label="Speed"
+    format={(speed) => `${speed}x`}
+  />
+</div>
