@@ -8,6 +8,7 @@
     "test": "web-test-runner \"src/**/*.test.ts\""
   },
   "dependencies": {
+    "@bulatdashiev/svelte-slider": "^1.0.3",
     "@fouita/slider": "^0.0.3",
     "@snowpack/plugin-dotenv": "^2.0.5",
     "@snowpack/plugin-postcss": "^1.1.0",
@@ -21,6 +22,8 @@
     "@web/test-runner": "^0.12.0",
     "autoprefixer": "^10.2.1",
     "chai": "^4.2.0",
+    "framework7": "^6.0.3",
+    "framework7-svelte": "^6.0.3",
     "postcss": "^8.2.4",
     "postcss-cli": "^8.3.1",
     "postcss-nesting": "^7.0.1",

@@ -1,6 +1,5 @@
 <script lang="typescript">
   let times: number[] = [];
-  let fps;
 
   function refreshLoop() {
     window.requestAnimationFrame(() => {
@@ -9,7 +8,6 @@
         times.shift();
       }
       times.push(now);
-      fps = times.length;
       times = times;
       refreshLoop();
     });
@@ -18,4 +16,4 @@
   refreshLoop();
 </script>
 
-<div>{times.length}</div>
+<div class="w-10">{times.length}</div>

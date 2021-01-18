@@ -43,7 +43,7 @@
 </script>
 
 <div class="flex flex-col h-full">
-  <span>{generation}</span>
+  <span>Generation: {generation}</span>
   <canvas
     class="flex-1 object-contain mb-3"
     bind:this={board}
