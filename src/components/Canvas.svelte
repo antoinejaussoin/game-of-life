@@ -1,35 +1,30 @@
 <script lang="typescript">
-  import { classic } from "../engines/variations";
-  import WebGlColorEngine from "../engines/webgl/webgl-color-engine";
   import { onMount } from "svelte";
-  import { pixelated, size, fill, speed, playing } from "../stores/store";
+  import { pixelated, speed, playing, engine } from "../stores/store";
 
   let board: HTMLCanvasElement;
-  let engine: WebGlColorEngine;
   let generation: number = 0;
 
-  $: {
-    engine = new WebGlColorEngine($size, $fill, classic);
+  engine.subscribe((x) => {
     if (board) {
-      engine.register(board);
-      engine.initToRandom();
-      engine.draw();
+      x.register(board);
+      x.initToRandom();
+      x.draw();
     }
-  }
+  });
 
   onMount(() => {
-    engine.register(board);
-    engine.initToRandom();
-    engine.draw();
+    $engine.register(board);
+    $engine.initToRandom();
+    $engine.draw();
 
     const next = () => {
       if ($playing) {
-        // running this.props.running) {
         for (let i = 0; i < $speed; i++) {
-          engine.play();
-          generation = engine.generation;
+          $engine.play();
+          generation = $engine.generation;
         }
-        engine.draw();
+        $engine.draw();
       }
       window.requestAnimationFrame(next);
     };
