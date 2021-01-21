@@ -1,4 +1,5 @@
 <script lang="typescript">
+  import { fps } from "../stores/store";
   let times: number[] = [];
 
   function refreshLoop() {
@@ -9,6 +10,7 @@
       }
       times.push(now);
       times = times;
+      fps.set(times.length);
       refreshLoop();
     });
   }

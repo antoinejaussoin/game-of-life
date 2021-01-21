@@ -1,35 +1,44 @@
 <script lang="typescript">
-  import { classic } from "../engines/variations";
-  import WebGlColorEngine from "../engines/webgl/webgl-color-engine";
   import { onMount } from "svelte";
-  import { pixelated, size, fill, speed, playing } from "../stores/store";
+  import {
+    pixelated,
+    speed,
+    playing,
+    engine,
+    pixelPerSecond,
+  } from "../stores/store";
+  import { relMouseCoords } from "./utils";
+  import numeral from "numeral";
 
   let board: HTMLCanvasElement;
-  let engine: WebGlColorEngine;
   let generation: number = 0;
 
-  $: {
-    engine = new WebGlColorEngine($size, $fill, classic);
+  engine.subscribe((eng) => {
     if (board) {
-      engine.register(board);
-      engine.initToRandom();
-      engine.draw();
+      eng.register(board);
+      eng.initToRandom();
+      eng.draw();
     }
+  });
+
+  function handleCanvasClick(e: MouseEvent) {
+    const coords = relMouseCoords(e, board);
+    $engine.inject(coords.x, coords.y, [[1]]);
+    $engine.draw();
   }
 
   onMount(() => {
-    engine.register(board);
-    engine.initToRandom();
-    engine.draw();
+    $engine.register(board);
+    $engine.initToRandom();
+    $engine.draw();
 
     const next = () => {
       if ($playing) {
-        // running this.props.running) {
         for (let i = 0; i < $speed; i++) {
-          engine.play();
-          generation = engine.generation;
+          $engine.play();
+          generation = $engine.generation;
         }
-        engine.draw();
+        $engine.draw();
       }
       window.requestAnimationFrame(next);
     };
@@ -43,11 +52,20 @@
 </script>
 
 <div class="flex flex-col h-full">
-  <span>Generation: {generation}</span>
+  <div class="self-center m-4 mb-7 text-3xl">
+    <div class="font-mono">
+      <span class="font-bold">Generation</span>: {generation}<span class="px-5"
+        >|</span
+      >{numeral($pixelPerSecond).format("0.0a")}&nbsp;<span class="font-bold"
+        >pixel/second</span
+      >
+    </div>
+  </div>
   <canvas
-    class="flex-1 object-contain mb-3"
+    class="w-3/4"
     bind:this={board}
     class:pixelated={$pixelated}
+    on:click={handleCanvasClick}
   />
 </div>
 

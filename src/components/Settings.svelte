@@ -1,11 +1,31 @@
 <script lang="typescript">
   import Toggle from "./Toggle.svelte";
-  import { pixelated, sizePower, fill, speed, playing } from "../stores/store";
   import Slider from "./Slider.svelte";
+  import {
+    pixelated,
+    sizePower,
+    fill,
+    speed,
+    playing,
+    engine,
+  } from "../stores/store";
+  import ControlButton from "./ControlButton.svelte";
+
+  function handleClear() {
+    if ($engine) {
+      $engine.initToBlank();
+      $engine.draw();
+    }
+  }
 </script>
 
-<div class="flex md-5 border-1 shadow-lg mb-8 space-x-5 p-5">
-  <Toggle class="flex-1" label="Playing" bind:value={$playing} />
+<div class="flex md-5 border-1 shadow-lg mb-8 space-x-5 p-5 items-center">
+  {#if $playing}
+    <ControlButton onClick={() => playing.set(false)} icon="pause" />
+  {:else}
+    <ControlButton onClick={() => playing.set(true)} icon="play_arrow" />
+  {/if}
+  <ControlButton onClick={handleClear} icon="clear" />
   <Toggle class="flex-1" label="Pixelated" bind:value={$pixelated} />
   <Slider
     class="flex-1 mt-5 mx-6"
