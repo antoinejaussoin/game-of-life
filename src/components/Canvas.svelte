@@ -13,17 +13,16 @@
   let board: HTMLCanvasElement;
   let generation: number = 0;
 
-  engine.subscribe((x) => {
+  engine.subscribe((eng) => {
     if (board) {
-      x.register(board);
-      x.initToRandom();
-      x.draw();
+      eng.register(board);
+      eng.initToRandom();
+      eng.draw();
     }
   });
 
   function handleCanvasClick(e: MouseEvent) {
     const coords = relMouseCoords(e, board);
-    console.log("Coords: ", coords, e);
     $engine.inject(coords.x, coords.y, [[1]]);
     $engine.draw();
   }

@@ -28,8 +28,4 @@ export function relMouseCoords(
   canvasY = Math.round(canvasY * (canvas.height / canvas.offsetHeight));
 
   return { x: canvasX, y: canvasY };
-  // const rect = canvas.getBoundingClientRect();
-  // const x = event.clientX - rect.left;
-  // const y = event.clientY - rect.top;
-  // return { x, y };
 }
