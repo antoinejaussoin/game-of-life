@@ -4,13 +4,9 @@
   import Settings from "./components/Settings.svelte";
 </script>
 
-<div class="flex flex-col h-screen">
-  <Header />
-  <Settings />
-  <div class="flex-1">
-    <Canvas />
-  </div>
-</div>
+<Header />
+<Settings />
+<Canvas />
 
 <style>
   :global(body) {

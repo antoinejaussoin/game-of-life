@@ -1,6 +1,14 @@
 <script lang="typescript">
   import { onMount } from "svelte";
-  import { pixelated, speed, playing, engine } from "../stores/store";
+  import {
+    pixelated,
+    speed,
+    playing,
+    engine,
+    pixelPerSecond,
+  } from "../stores/store";
+  import { relMouseCoords } from "./utils";
+  import numeral from "numeral";
 
   let board: HTMLCanvasElement;
   let generation: number = 0;
@@ -12,6 +20,13 @@
       x.draw();
     }
   });
+
+  function handleCanvasClick(e: MouseEvent) {
+    const coords = relMouseCoords(e, board);
+    console.log("Coords: ", coords, e);
+    $engine.inject(coords.x, coords.y, [[1]]);
+    $engine.draw();
+  }
 
   onMount(() => {
     $engine.register(board);
@@ -38,11 +53,20 @@
 </script>
 
 <div class="flex flex-col h-full">
-  <span>Generation: {generation}</span>
+  <div class="self-center m-4 mb-7 text-3xl">
+    <div class="font-mono">
+      <span class="font-bold">Generation</span>: {generation}<span class="px-5"
+        >|</span
+      >{numeral($pixelPerSecond).format("0.0a")}&nbsp;<span class="font-bold"
+        >pixel/second</span
+      >
+    </div>
+  </div>
   <canvas
-    class="flex-1 object-contain mb-3"
+    class="w-3/4"
     bind:this={board}
     class:pixelated={$pixelated}
+    on:click={handleCanvasClick}
   />
 </div>
 
