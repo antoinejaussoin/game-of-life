@@ -26,6 +26,14 @@
       generation.set($engine.generation);
     }
   }
+
+  function handleReset() {
+    if ($engine) {
+      $engine.initToRandom();
+      $engine.draw();
+      generation.set(0);
+    }
+  }
 </script>
 
 <div class="flex md-5 border-1 shadow-lg mb-8 space-x-5 p-5 items-center">
@@ -36,6 +44,7 @@
   {/if}
   <ControlButton onClick={handleClear} icon="clear" />
   <ControlButton onClick={handleStep} icon="plus_one" disabled={$playing} />
+  <ControlButton onClick={handleReset} icon="replay" />
   <Toggle class="flex-1" label="Pixelated" bind:value={$pixelated} />
   <Slider
     class="flex-1 mt-5 mx-6"
