@@ -3,6 +3,7 @@ import { derived, writable } from "svelte/store";
 import { classic } from "../engines/variations";
 
 export const playing = writable(false);
+export const generation = writable(0);
 export const pixelated = writable(true);
 export const sizePower = writable(7);
 export const fill = writable(20);

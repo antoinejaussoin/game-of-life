@@ -4,6 +4,7 @@
     pixelated,
     speed,
     playing,
+    generation,
     engine,
     pixelPerSecond,
   } from "../stores/store";
@@ -11,7 +12,6 @@
   import numeral from "numeral";
 
   let board: HTMLCanvasElement;
-  let generation: number = 0;
 
   engine.subscribe((eng) => {
     if (board) {
@@ -36,7 +36,7 @@
       if ($playing) {
         for (let i = 0; i < $speed; i++) {
           $engine.play();
-          generation = $engine.generation;
+          generation.set($engine.generation);
         }
         $engine.draw();
       }
@@ -54,7 +54,7 @@
 <div class="flex flex-col h-full">
   <div class="self-center m-4 mb-7 text-3xl">
     <div class="font-mono">
-      <span class="font-bold">Generation</span>: {generation}<span class="px-5"
+      <span class="font-bold">Generation</span>: {$generation}<span class="px-5"
         >|</span
       >{numeral($pixelPerSecond).format("0.0a")}&nbsp;<span class="font-bold"
         >pixel/second</span

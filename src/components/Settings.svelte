@@ -8,6 +8,7 @@
     speed,
     playing,
     engine,
+    generation,
   } from "../stores/store";
   import ControlButton from "./ControlButton.svelte";
 
@@ -15,6 +16,14 @@
     if ($engine) {
       $engine.initToBlank();
       $engine.draw();
+    }
+  }
+
+  function handleStep() {
+    if ($engine) {
+      $engine.play();
+      $engine.draw();
+      generation.set($engine.generation);
     }
   }
 </script>
@@ -26,6 +35,7 @@
     <ControlButton onClick={() => playing.set(true)} icon="play_arrow" />
   {/if}
   <ControlButton onClick={handleClear} icon="clear" />
+  <ControlButton onClick={handleStep} icon="plus_one" disabled={$playing} />
   <Toggle class="flex-1" label="Pixelated" bind:value={$pixelated} />
   <Slider
     class="flex-1 mt-5 mx-6"
