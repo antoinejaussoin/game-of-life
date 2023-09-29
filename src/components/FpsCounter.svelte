@@ -1,4 +1,4 @@
-<script lang="typescript">
+<script lang="ts">
   import { fps } from "../stores/store";
   let times: number[] = [];
 

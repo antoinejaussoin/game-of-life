@@ -1,4 +1,4 @@
-<script lang="typescript">
+<script lang="ts">
   import Slider from "@bulatdashiev/svelte-slider";
   export let value: number = 0;
   export let min: number = 0;
