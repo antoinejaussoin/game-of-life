@@ -1,7 +1,7 @@
 {
   "name": "game-of-life",
   "private": true,
-  "version": "2.0.2",
+  "version": "3.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,7 +9,12 @@
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
-  "devDependencies": {
+  "dependencies": {
+    "@bulatdashiev/svelte-slider": "^1.0.3",
+    "@types/lodash": "^4.14.199",
+    "@types/numeral": "^2.0.3",
+    "lodash": "^4.17.21",
+    "numeral": "^2.0.6",
     "@sveltejs/vite-plugin-svelte": "^2.4.2",
     "@tsconfig/svelte": "^5.0.0",
     "autoprefixer": "^10.4.16",
@@ -20,12 +25,5 @@
     "tslib": "^2.6.0",
     "typescript": "^5.0.2",
     "vite": "^4.4.5"
-  },
-  "dependencies": {
-    "@bulatdashiev/svelte-slider": "^1.0.3",
-    "@types/lodash": "^4.14.199",
-    "@types/numeral": "^2.0.3",
-    "lodash": "^4.17.21",
-    "numeral": "^2.0.6"
   }
 }
