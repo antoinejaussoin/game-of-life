@@ -1,4 +1,4 @@
-<script lang="typescript">
+<script lang="ts">
   import noop from "lodash/noop";
 
   export let onClick: () => void = noop;

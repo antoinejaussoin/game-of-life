@@ -1,4 +1,4 @@
-<script lang="typescript">
+<script lang="ts">
   import Toggle from "./Toggle.svelte";
   import Slider from "./Slider.svelte";
   import {

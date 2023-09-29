@@ -1,4 +1,4 @@
-<script lang="typescript">
+<script lang="ts">
   // https://tailwindcomponents.com/component/toggle
   export let value = false;
   export let label = "";
@@ -17,7 +17,8 @@
 
 <label
   for={`toggle-${label}`}
-  class="mt-3 inline-flex items-center cursor-pointer">
+  class="mt-3 inline-flex items-center cursor-pointer"
+>
   <span class="relative">
     <span class="block w-10 h-6 bg-pink-200 rounded-full shadow-inner" />
     <span class={customClasses}>

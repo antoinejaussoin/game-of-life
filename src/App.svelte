@@ -1,4 +1,4 @@
-<script lang="typescript">
+<script lang="ts">
   import Canvas from "./components/Canvas.svelte";
   import Header from "./components/Header.svelte";
   import Settings from "./components/Settings.svelte";
