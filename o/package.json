@@ -1,0 +1,33 @@
+{
+  "name": "game-of-life",
+  "author": "Antoine Jaussoin",
+  "version": "2.0.2",
+  "scripts": {
+    "start": "vite",
+    "build": "NODE_ENV=production snowpack build",
+    "test": "web-test-runner \"src/**/*.test.ts\""
+  },
+  "dependencies": {
+    "@bulatdashiev/svelte-slider": "^1.0.3",
+    "@sveltejs/vite-plugin-svelte": "^2.4.6",
+    "@testing-library/svelte": "^3.0.0",
+    "@tsconfig/svelte": "^5.0.2",
+    "@types/chai": "^4.2.13",
+    "@types/lodash": "^4.14.168",
+    "@types/mocha": "^8.2.0",
+    "@types/numeral": "^0.0.29",
+    "@web/test-runner": "^0.12.0",
+    "autoprefixer": "^10.2.1",
+    "chai": "^4.2.0",
+    "lodash": "^4.17.20",
+    "numeral": "^2.0.6",
+    "postcss": "^8.2.4",
+    "postcss-cli": "^8.3.1",
+    "postcss-nesting": "^7.0.1",
+    "svelte": "^4.2.1",
+    "svelte-check": "^3.5.2",
+    "tailwindcss": "^2.0.2",
+    "typescript": "^5.2.2",
+    "vite": "^4.4.9"
+  }
+}

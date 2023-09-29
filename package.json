@@ -1,37 +1,21 @@
 {
   "name": "game-of-life",
-  "author": "Antoine Jaussoin",
-  "version": "2.0.2",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "start": "snowpack dev",
-    "build": "NODE_ENV=production snowpack build",
-    "test": "web-test-runner \"src/**/*.test.ts\""
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "svelte-check --tsconfig ./tsconfig.json"
   },
-  "dependencies": {
-    "@bulatdashiev/svelte-slider": "^1.0.3",
-    "@snowpack/plugin-dotenv": "^2.0.5",
-    "@snowpack/plugin-postcss": "^1.1.0",
-    "@snowpack/plugin-svelte": "^3.5.0",
-    "@snowpack/plugin-typescript": "^1.2.0",
-    "@snowpack/web-test-runner-plugin": "^0.2.0",
-    "@testing-library/svelte": "^3.0.0",
-    "@types/chai": "^4.2.13",
-    "@types/lodash": "^4.14.168",
-    "@types/mocha": "^8.2.0",
-    "@types/numeral": "^0.0.29",
-    "@types/snowpack-env": "^2.3.2",
-    "@web/test-runner": "^0.12.0",
-    "autoprefixer": "^10.2.1",
-    "chai": "^4.2.0",
-    "lodash": "^4.17.20",
-    "numeral": "^2.0.6",
-    "postcss": "^8.2.4",
-    "postcss-cli": "^8.3.1",
-    "postcss-nesting": "^7.0.1",
-    "snowpack": "^3.0.1",
-    "svelte": "^3.24.0",
-    "svelte-preprocess": "^4.0.8",
-    "tailwindcss": "^2.0.2",
-    "typescript": "^4.0.0"
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^2.4.2",
+    "@tsconfig/svelte": "^5.0.0",
+    "svelte": "^4.0.5",
+    "svelte-check": "^3.4.6",
+    "tslib": "^2.6.0",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5"
   }
 }
