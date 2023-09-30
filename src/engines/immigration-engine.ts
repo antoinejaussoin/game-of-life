@@ -19,6 +19,11 @@ export default class BlackAndWhiteEngine implements Engine {
     this.generation = 0;
     this._tmp = [];
   }
+
+  get maxTextureSize() {
+    return 6;
+  }
+
   set(x: number, y: number, value: number): void {
     this._gridA[x][y] = value;
   }

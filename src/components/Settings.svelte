@@ -9,8 +9,10 @@
     playing,
     engine,
     generation,
+    engineType,
   } from "../stores/store";
   import ControlButton from "./ControlButton.svelte";
+  import EnginePicker from "./EnginePicker.svelte";
 
   function handleClear() {
     if ($engine) {
@@ -70,4 +72,5 @@
     label="Speed"
     format={(speed) => `${speed}x`}
   />
+  <EnginePicker bind:engine={$engineType} />
 </div>

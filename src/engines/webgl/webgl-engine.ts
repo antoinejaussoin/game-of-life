@@ -1,4 +1,4 @@
-import type { Board, Engine, Variation } from "src/types";
+import type { Board, Engine, EngineType, Variation } from "src/types";
 import { classic } from "../variations";
 import GOL from "./gol";
 
@@ -21,6 +21,10 @@ export default class WebGlEngine implements Engine {
     this.gol = null;
     this.generation = 0;
     this.canvas = null;
+  }
+
+  get type() {
+    return "webgl" as EngineType;
   }
 
   initToRandom() {

@@ -1,4 +1,10 @@
-import type { Color, ColorWithCss, Engine, Variation } from "src/types";
+import type {
+  Color,
+  ColorWithCss,
+  Engine,
+  EngineType,
+  Variation,
+} from "src/types";
 import { classic } from "./variations";
 
 const numberOfColours: number = 1000;
@@ -37,6 +43,14 @@ export default class ColorEngine implements Engine {
     this._gridA = [];
     this._gridB = [];
     this.generation = 0;
+  }
+
+  get maxTextureSize() {
+    return 8;
+  }
+
+  get type() {
+    return "2d" as EngineType;
   }
 
   private _generateEmptyGrid(

@@ -1,4 +1,4 @@
-import type { Engine, Variation } from "src/types";
+import type { Engine, EngineType, Variation } from "src/types";
 import { classic } from "./variations";
 
 export default class BlackAndWhiteEngine implements Engine {
@@ -27,6 +27,13 @@ export default class BlackAndWhiteEngine implements Engine {
     this._gridB = [];
     this.generation = 0;
     this._tmp = [];
+  }
+  get maxTextureSize() {
+    return 8;
+  }
+
+  get type() {
+    return "2d" as EngineType;
   }
 
   private _generateEmptyGrid(percentageAlive: number): number[][] {

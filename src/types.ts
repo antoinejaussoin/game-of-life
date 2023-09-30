@@ -35,9 +35,21 @@ export interface Engine {
   initToRandom(percentageAlive?: number): void;
   size: number;
   set(x: number, y: number, value: number): void;
+  maxTextureSize: number;
+  type: EngineType;
 }
 
 export type Scenario = {
   name: string;
   init: (engine: Engine) => void;
 };
+
+export type EngineMetadata = {
+  id: EngineId;
+  type: EngineType;
+  name: string;
+  description: string;
+};
+
+export type EngineId = "webgl" | "webgl-color" | "js-bw" | "js-color";
+export type EngineType = "webgl" | "2d";
