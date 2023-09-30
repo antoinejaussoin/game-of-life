@@ -2,9 +2,11 @@
 
 If you don't know what the Game of Life is yet, please look at the [Wikipedia article](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life).
 
-You can see this live [on my website](http://gol.jaussoin.com). I shall find a domain for that soon.
+[Try it now!](http://gol.jaussoin.com).
 
 This version is using Svelte + Vite + TypeScript, but you can also find a React version in previous commits.
+
+![gol.jaussoin.com](/medias/screenshot.png?raw=true 'Game of Life')
 
 ## Run on your machine
 
@@ -17,6 +19,10 @@ This version is using Svelte + Vite + TypeScript, but you can also find a React 
 - Clone this repo
 - `npm i`
 - `npm run build`
+
+## Run with Docker in one command
+
+`docker run -p 8080:80 antoinejaussoin/game-of-life:latest` then open your browser at [localhost:8080](http://localhost:8080)
 
 ## Interesting links
 
