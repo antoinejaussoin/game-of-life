@@ -1,7 +1,7 @@
-import type { Variation } from "src/types";
+import type { Engine, Variation } from "src/types";
 import { classic } from "./variations";
 
-export default class BlackAndWhiteEngine {
+export default class BlackAndWhiteEngine implements Engine {
   isWebgl: boolean = false;
   private _variation: Variation;
   private _fill: number;

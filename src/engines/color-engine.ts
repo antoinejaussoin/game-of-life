@@ -1,9 +1,9 @@
-import type { Color, ColorWithCss, Variation } from "src/types";
+import type { Color, ColorWithCss, Engine, Variation } from "src/types";
 import { classic } from "./variations";
 
 const numberOfColours: number = 1000;
 
-export default class ColorEngine {
+export default class ColorEngine implements Engine {
   isWebgl: boolean = false;
   private _fill: number;
   private _variation: any; // Replace 'any' with the actual type of 'variation'
