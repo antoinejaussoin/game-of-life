@@ -5,7 +5,7 @@ import type {
   EngineType,
   Variation,
 } from "src/types";
-import { classic } from "./variations";
+import { classic } from "../variations";
 
 const numberOfColours: number = 1000;
 

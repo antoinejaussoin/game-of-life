@@ -34,6 +34,11 @@ http://www.radicaleye.com/lifepage/picgloss/picgloss.html
 
 # Changelog
 
+## 3.1.0
+
+- Ability to choose the engine (WebGL or 2D Canvas)
+- Finished the migration to TypeScript
+
 ## 3.0.0
 
 - Migration to Svelte 4

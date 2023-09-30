@@ -1,5 +1,5 @@
 import type { Engine, EngineType, Variation } from "src/types";
-import { classic } from "./variations";
+import { classic } from "../variations";
 
 export default class BlackAndWhiteEngine implements Engine {
   isWebgl: boolean = false;

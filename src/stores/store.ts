@@ -3,8 +3,8 @@ import { derived, writable } from "svelte/store";
 import { classic } from "../engines/variations";
 import { engines } from "../engines/engines";
 import WebGlEngine from "../engines/webgl/webgl-engine";
-import BlackAndWhiteEngine from "../engines/bw-engine";
-import ColorEngine from "../engines/color-engine";
+import BlackAndWhiteEngine from "../engines/2d/bw-engine";
+import ColorEngine from "../engines/2d/color-engine";
 
 export const playing = writable(false);
 export const generation = writable(0);

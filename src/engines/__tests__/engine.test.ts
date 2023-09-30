@@ -1,5 +1,5 @@
-import BlackAndWhiteEngine from "../bw-engine";
-import ColorEngine from "../color-engine";
+import BlackAndWhiteEngine from "../2d/bw-engine";
+import ColorEngine from "../2d/color-engine";
 
 const engines = [
   { name: "B&W", engine: BlackAndWhiteEngine },
