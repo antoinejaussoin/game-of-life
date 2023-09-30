@@ -4,7 +4,7 @@ import Igloo from "./igloo";
 import quadVert from "./glsl/quad.vert";
 import copyFrag from "./glsl/copy.frag";
 import golFrag from "./glsl/gol.frag";
-import type { Board, Colour, Variation, WebGlBoard } from "src/types";
+import type { Colour, Variation, WebGlBoard } from "src/types";
 
 export default class GOL {
   aliveColour: Colour;

@@ -15,6 +15,8 @@
       : "bg-pink-50 text-pink-900 hover:bg-pink-900 hover:text-pink-50 cursor-pointer"
   } text-3xl`}
   on:click={disabled ? noop : onClick}
+  role="button"
+  tabindex="0"
 >
   {icon}
 </div>
