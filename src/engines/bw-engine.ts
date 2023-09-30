@@ -117,8 +117,8 @@ export default class BlackAndWhiteEngine {
     y: number,
     getScoreFn: (grid: number[][], x: number, y: number) => number
   ): number {
-    const neighbours = getScoreFn(grid, x, y);
-    const next = this._variation.js(neighbours);
+    const neighbors = getScoreFn(grid, x, y);
+    const next = this._variation.js(neighbors);
     return next === -1 ? grid[x][y] : next;
   }
 

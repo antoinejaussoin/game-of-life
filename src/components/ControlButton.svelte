@@ -8,18 +8,16 @@
   export { clazz as class };
 </script>
 
-<div
+<button
   class={`${clazz} material-icons rounded-full h-10 w-10 border-pink-600  flex items-center justify-center ${
     disabled
       ? "bg-gray-50 text-gray-400"
       : "bg-pink-50 text-pink-900 hover:bg-pink-900 hover:text-pink-50 cursor-pointer"
   } text-3xl`}
   on:click={disabled ? noop : onClick}
-  role="button"
-  tabindex="0"
 >
   {icon}
-</div>
+</button>
 
 <style>
 </style>

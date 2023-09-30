@@ -19,6 +19,6 @@ jobs:
           node-version: 18
       - run: npm i
       - run: npm run ci-test
-      # - run: npm run check
+      - run: npm run check
       - run: npm run build
   
