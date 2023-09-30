@@ -46,7 +46,7 @@ export default class ColorEngine implements Engine {
   }
 
   get maxTextureSize() {
-    return 8;
+    return 10;
   }
 
   get type() {

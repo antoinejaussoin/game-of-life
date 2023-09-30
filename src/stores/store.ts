@@ -13,7 +13,7 @@ export const sizePower = writable(7);
 export const fill = writable(20);
 export const speed = writable(1);
 export const fps = writable(60);
-export const engineType = writable(engines[2]);
+export const engineType = writable(engines.find((e) => e.id === "webgl-color"));
 export const size = derived(sizePower, ($sizePower) => Math.pow(2, $sizePower));
 export const pixelPerSecond = derived(
   [size, speed, fps, playing],

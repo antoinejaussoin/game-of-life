@@ -39,6 +39,7 @@
 </script>
 
 <div class="flex md-5 border-1 shadow-lg mb-8 space-x-5 p-5 items-center">
+  <EnginePicker bind:engine={$engineType} />
   {#if $playing}
     <ControlButton onClick={() => playing.set(false)} icon="pause" />
   {:else}
@@ -72,5 +73,4 @@
     label="Speed"
     format={(speed) => `${speed}x`}
   />
-  <EnginePicker bind:engine={$engineType} />
 </div>

@@ -19,7 +19,8 @@
         engine = e;
       }}
     >
-      {e.name}
+      <span class="font-bold">{e.name}</span>
+      <span class="ms-8 space-x-1 text-gray-400">{e.description}</span>
     </DropdownItem>
   {/each}
 </Dropdown>

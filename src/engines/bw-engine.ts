@@ -29,7 +29,7 @@ export default class BlackAndWhiteEngine implements Engine {
     this._tmp = [];
   }
   get maxTextureSize() {
-    return 8;
+    return 10;
   }
 
   get type() {
