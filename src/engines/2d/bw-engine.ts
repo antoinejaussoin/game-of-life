@@ -54,7 +54,6 @@ export default class BlackAndWhiteEngine implements Engine {
     this.canvas = canvas;
     const context = canvas.getContext("2d");
     if (context) {
-      console.log(canvas);
       context.imageSmoothingEnabled = true;
       canvas.height = this.size;
       canvas.width = this.size;

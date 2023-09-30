@@ -80,7 +80,6 @@ export default class ColorEngine implements Engine {
   register(canvas: HTMLCanvasElement) {
     this.canvas = canvas;
     const context = canvas.getContext("2d");
-    console.log(canvas);
     if (context) {
       context.imageSmoothingEnabled = true;
       canvas.height = this.size;

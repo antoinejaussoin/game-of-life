@@ -37,7 +37,6 @@
   }
 
   onMount(() => {
-    console.log("🔥 register board");
     $engine.register($engine.type === "webgl" ? boardWebGl : board2d);
     $engine.initToRandom();
     $engine.draw();
