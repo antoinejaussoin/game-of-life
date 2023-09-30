@@ -85,4 +85,13 @@ export default class WebGlEngine {
       return this.gol.toArray();
     }
   }
+
+  get maxTextureSize() {
+    const canvas = document.createElement("canvas");
+    const gl = canvas.getContext("webgl");
+    if (!gl) {
+      return 6;
+    }
+    return Math.log2(gl.getParameter(gl.MAX_TEXTURE_SIZE) / 2);
+  }
 }
