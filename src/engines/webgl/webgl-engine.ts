@@ -1,11 +1,11 @@
-import type { Board, Variation } from "src/types";
+import type { Board, Engine, EngineType, Variation } from "src/types";
 import { classic } from "../variations";
 import GOL from "./gol";
 
 const aliveColour = { r: 70, g: 142, b: 64 };
 const deadColour = { r: 252, g: 209, b: 209 };
 
-export default class WebGlEngine {
+export default class WebGlEngine implements Engine {
   isWebgl = true;
   private _fill: number;
   _variation: Variation;
@@ -21,6 +21,10 @@ export default class WebGlEngine {
     this.gol = null;
     this.generation = 0;
     this.canvas = null;
+  }
+
+  get type() {
+    return "webgl" as EngineType;
   }
 
   initToRandom() {

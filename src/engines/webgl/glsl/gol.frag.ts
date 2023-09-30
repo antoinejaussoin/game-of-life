@@ -1,11 +1,11 @@
 // Inspired from https://github.com/skeeto/webgl-game-of-life
 
-import type { Colour } from "src/types";
+import type { Color } from "src/types";
 
 export default (
   variation: string,
-  deadColour: Colour,
-  aliveColour: Colour,
+  deadColour: Color,
+  aliveColour: Color,
   useAge: boolean
 ) => `
 #ifdef GL_ES

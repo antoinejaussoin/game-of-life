@@ -2,7 +2,7 @@
   "name": "game-of-life",
   "author": "Antoine Jaussoin",
   "private": true,
-  "version": "3.0.1",
+  "version": "3.1.0",
   "type": "module",
   "scripts": {
     "start": "vite",
@@ -19,6 +19,9 @@
     "@types/lodash": "^4.14.199",
     "@types/numeral": "^2.0.3",
     "autoprefixer": "^10.4.16",
+    "flowbite": "^1.8.1",
+    "flowbite-svelte": "^0.44.17",
+    "flowbite-svelte-icons": "^0.4.4",
     "lodash": "^4.17.21",
     "numeral": "^2.0.6",
     "postcss": "^8.4.31",

@@ -4,11 +4,11 @@ import Igloo from "./igloo";
 import quadVert from "./glsl/quad.vert";
 import copyFrag from "./glsl/copy.frag";
 import golFrag from "./glsl/gol.frag";
-import type { Colour, Variation, WebGlBoard } from "src/types";
+import type { Color, Variation, WebGlBoard } from "src/types";
 
 export default class GOL {
-  aliveColour: Colour;
-  deadColour: Colour;
+  aliveColour: Color;
+  deadColour: Color;
   igloo: any;
   scale: number;
   viewsize: Float32Array;
@@ -22,8 +22,8 @@ export default class GOL {
     scale: number,
     variation: Variation,
     useAge: boolean,
-    aliveColour: Colour,
-    deadColour: Colour
+    aliveColour: Color,
+    deadColour: Color
   ) {
     this.aliveColour = aliveColour;
     this.deadColour = deadColour;

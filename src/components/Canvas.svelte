@@ -11,24 +11,33 @@
   import { relMouseCoords } from "./utils";
   import numeral from "numeral";
 
-  let board: HTMLCanvasElement;
+  let boardWebGl: HTMLCanvasElement;
+  let board2d: HTMLCanvasElement;
 
   engine.subscribe((eng) => {
-    if (board) {
-      eng.register(board);
+    if (eng.type === "webgl" && boardWebGl) {
+      eng.register(boardWebGl);
+      eng.initToRandom();
+      eng.draw();
+    }
+    if (eng.type === "2d" && board2d) {
+      eng.register(board2d);
       eng.initToRandom();
       eng.draw();
     }
   });
 
   function handleCanvasClick(e: MouseEvent) {
-    const coords = relMouseCoords(e, board);
+    const coords = relMouseCoords(
+      e,
+      $engine.type === "webgl" ? boardWebGl : board2d
+    );
     $engine.inject(coords.x, coords.y, [[1]]);
     $engine.draw();
   }
 
   onMount(() => {
-    $engine.register(board);
+    $engine.register($engine.type === "webgl" ? boardWebGl : board2d);
     $engine.initToRandom();
     $engine.draw();
 
@@ -63,8 +72,16 @@
   </div>
   <canvas
     class="self-center h-screen"
-    bind:this={board}
+    bind:this={boardWebGl}
     class:pixelated={$pixelated}
+    class:hidden={$engine.type !== "webgl"}
+    on:click={handleCanvasClick}
+  />
+  <canvas
+    class="self-center h-screen"
+    bind:this={board2d}
+    class:pixelated={$pixelated}
+    class:hidden={$engine.type !== "2d"}
     on:click={handleCanvasClick}
   />
 </div>
@@ -75,5 +92,9 @@
     image-rendering: auto;
     image-rendering: crisp-edges;
     image-rendering: pixelated;
+  }
+
+  .hidden {
+    visibility: hidden;
   }
 </style>

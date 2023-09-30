@@ -9,9 +9,7 @@
   export { clazz as class };
   let range = [value];
   $: {
-    console.log("Before updating range", range, value);
     value = range[0];
-    console.log("After updating range", range, value);
   }
 </script>
 

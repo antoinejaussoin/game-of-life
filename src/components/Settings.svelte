@@ -9,8 +9,10 @@
     playing,
     engine,
     generation,
+    engineType,
   } from "../stores/store";
   import ControlButton from "./ControlButton.svelte";
+  import EnginePicker from "./EnginePicker.svelte";
 
   function handleClear() {
     if ($engine) {
@@ -37,6 +39,7 @@
 </script>
 
 <div class="flex md-5 border-1 shadow-lg mb-8 space-x-5 p-5 items-center">
+  <EnginePicker bind:engine={$engineType} />
   {#if $playing}
     <ControlButton onClick={() => playing.set(false)} icon="pause" />
   {:else}

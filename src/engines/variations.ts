@@ -1,10 +1,10 @@
 import type { Variation } from "../types";
 
 export const classic: Variation = {
-  js: (neighbours: number) => {
-    if (neighbours < 2 || neighbours > 3) {
+  js: (neighbors: number) => {
+    if (neighbors < 2 || neighbors > 3) {
       return 0;
-    } else if (neighbours === 3) {
+    } else if (neighbors === 3) {
       return 1;
     } else {
       return -1;
@@ -22,10 +22,10 @@ export const classic: Variation = {
 };
 
 export const highLife: Variation = {
-  js: (neighbours) => {
-    if (neighbours === 3 || neighbours === 6) {
+  js: (neighbors) => {
+    if (neighbors === 3 || neighbors === 6) {
       return 1;
-    } else if (neighbours === 2) {
+    } else if (neighbors === 2) {
       return -1;
     } else {
       return 0;
