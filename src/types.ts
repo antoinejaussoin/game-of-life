@@ -9,12 +9,35 @@ export interface Variation {
   webGl: string;
 }
 
-export interface Colour {
+export interface Color {
   r: number;
   g: number;
   b: number;
 }
 
+export interface ColorWithCss extends Color {
+  cssColor: string;
+}
+
 export interface Settings {
   pixelated: boolean;
 }
+
+export type ShapePreset = {
+  name: string;
+  shape: Shape;
+};
+
+export type Shape = number[][];
+
+export interface Engine {
+  initToBlank(): void;
+  initToRandom(percentageAlive?: number): void;
+  size: number;
+  set(x: number, y: number, value: number): void;
+}
+
+export type Scenario = {
+  name: string;
+  init: (engine: Engine) => void;
+};
