@@ -49,7 +49,7 @@
   <Slider
     class="flex-1 mt-5 mx-6"
     min={0}
-    max={14}
+    max={$engine.maxTextureSize}
     bind:value={$sizePower}
     label="Size"
     format={(size) => `${Math.pow(2, size)}px`}

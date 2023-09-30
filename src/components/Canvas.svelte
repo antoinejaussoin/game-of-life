@@ -51,7 +51,7 @@
   });
 </script>
 
-<div class="flex flex-col h-full">
+<div class="flex flex-col h-full justify-center">
   <div class="self-center m-4 mb-7 text-3xl">
     <div class="font-mono">
       <span class="font-bold">Generation</span>: {$generation}<span class="px-5"
@@ -62,7 +62,7 @@
     </div>
   </div>
   <canvas
-    class="w-3/4"
+    class="self-center h-screen"
     bind:this={board}
     class:pixelated={$pixelated}
     on:click={handleCanvasClick}
