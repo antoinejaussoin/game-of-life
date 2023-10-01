@@ -1,22 +1,22 @@
 <script lang="ts">
   import { Button, Dropdown, DropdownItem } from "flowbite-svelte";
   import { ChevronDownSolid } from "flowbite-svelte-icons";
-  import type { EngineMetadata } from "src/types";
-  import { engines } from "../engines/engines";
+  import type { Scenario } from "../../types";
+  import scenarios from "../../engines/scenarios";
 
-  export let engine: EngineMetadata;
+  export let scenario: Scenario;
 </script>
 
 <Button
-  >{engine.name}<ChevronDownSolid
+  >{scenario.name}<ChevronDownSolid
     class="w-3 h-3 ml-2 text-white dark:text-white"
   /></Button
 >
 <Dropdown>
-  {#each engines as e}
+  {#each scenarios as e}
     <DropdownItem
       on:click={() => {
-        engine = e;
+        scenario = e;
       }}
     >
       <span class="font-bold">{e.name}</span>

@@ -7,6 +7,7 @@
     generation,
     engine,
     pixelPerSecond,
+    scenario,
   } from "../stores/store";
   import { relMouseCoords } from "./utils";
   import numeral from "numeral";
@@ -17,13 +18,20 @@
   engine.subscribe((eng) => {
     if (eng.type === "webgl" && boardWebGl) {
       eng.register(boardWebGl);
-      eng.initToRandom();
+      $scenario.init(eng);
       eng.draw();
     }
     if (eng.type === "2d" && board2d) {
       eng.register(board2d);
-      eng.initToRandom();
+      $scenario.init(eng);
       eng.draw();
+    }
+  });
+
+  scenario.subscribe((s) => {
+    if ($engine) {
+      s.init($engine);
+      $engine.draw();
     }
   });
 
@@ -38,7 +46,7 @@
 
   onMount(() => {
     $engine.register($engine.type === "webgl" ? boardWebGl : board2d);
-    $engine.initToRandom();
+    $scenario.init($engine);
     $engine.draw();
 
     const next = () => {

@@ -1,7 +1,7 @@
 <script lang="ts">
   import Canvas from "./components/Canvas.svelte";
-  import Header from "./components/Header.svelte";
-  import Settings from "./components/Settings.svelte";
+  import Header from "./components/header/Header.svelte";
+  import Settings from "./components/settings/Settings.svelte";
 </script>
 
 <Header />

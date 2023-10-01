@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { fps } from "../stores/store";
+  import { fps } from "../../stores/store";
   let times: number[] = [];
 
   function refreshLoop() {

@@ -10,9 +10,13 @@
     engine,
     generation,
     engineType,
-  } from "../stores/store";
+    variation,
+    scenario,
+  } from "../../stores/store";
   import ControlButton from "./ControlButton.svelte";
   import EnginePicker from "./EnginePicker.svelte";
+  import VariationPicker from "./VariationPicker.svelte";
+  import ScenarioPicker from "./ScenarioPicker.svelte";
 
   function handleClear() {
     if ($engine) {
@@ -31,7 +35,7 @@
 
   function handleReset() {
     if ($engine) {
-      $engine.initToRandom();
+      $scenario.init($engine);
       $engine.draw();
       generation.set(0);
     }
@@ -40,6 +44,8 @@
 
 <div class="flex md-5 border-1 shadow-lg mb-8 space-x-5 p-5 items-center">
   <EnginePicker bind:engine={$engineType} />
+  <VariationPicker bind:variation={$variation} />
+  <ScenarioPicker bind:scenario={$scenario} />
   {#if $playing}
     <ControlButton onClick={() => playing.set(false)} icon="pause" />
   {:else}

@@ -2,6 +2,7 @@ import type { Scenario } from "src/types";
 
 export const random: Scenario = {
   name: "Random",
+  description: "Randomly generated board, using the fill setting.",
   init: (engine) => {
     engine.initToRandom();
   },
@@ -9,6 +10,7 @@ export const random: Scenario = {
 
 export const firework: Scenario = {
   name: "Firework",
+  description: "A firework. Best used with the HighLife variation.",
   init: (engine) => {
     engine.initToBlank();
     const size = engine.size;
