@@ -1,22 +1,22 @@
 <script lang="ts">
   import { Button, Dropdown, DropdownItem } from "flowbite-svelte";
   import { ChevronDownSolid } from "flowbite-svelte-icons";
-  import type { EngineMetadata } from "src/types";
-  import { engines } from "../engines/engines";
+  import { AllVariations } from "../../engines/variations";
+  import type { Variation } from "../../types";
 
-  export let engine: EngineMetadata;
+  export let variation: Variation;
 </script>
 
 <Button
-  >{engine.name}<ChevronDownSolid
+  >{variation.name}<ChevronDownSolid
     class="w-3 h-3 ml-2 text-white dark:text-white"
   /></Button
 >
 <Dropdown>
-  {#each engines as e}
+  {#each AllVariations as e}
     <DropdownItem
       on:click={() => {
-        engine = e;
+        variation = e;
       }}
     >
       <span class="font-bold">{e.name}</span>

@@ -10,9 +10,11 @@
     engine,
     generation,
     engineType,
-  } from "../stores/store";
+    variation,
+  } from "../../stores/store";
   import ControlButton from "./ControlButton.svelte";
   import EnginePicker from "./EnginePicker.svelte";
+  import VariationPicker from "./VariationPicker.svelte";
 
   function handleClear() {
     if ($engine) {
@@ -40,6 +42,7 @@
 
 <div class="flex md-5 border-1 shadow-lg mb-8 space-x-5 p-5 items-center">
   <EnginePicker bind:engine={$engineType} />
+  <VariationPicker bind:variation={$variation} />
   {#if $playing}
     <ControlButton onClick={() => playing.set(false)} icon="pause" />
   {:else}

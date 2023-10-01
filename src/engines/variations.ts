@@ -1,6 +1,8 @@
 import type { Variation } from "../types";
 
 export const classic: Variation = {
+  name: "Conway's Classic",
+  description: "Classic ruleset by John Conway.",
   js: (neighbors: number) => {
     if (neighbors < 2 || neighbors > 3) {
       return 0;
@@ -22,6 +24,8 @@ export const classic: Variation = {
 };
 
 export const highLife: Variation = {
+  name: "HighLife",
+  description: "Slightly different rules, by Nathan Thompson",
   js: (neighbors) => {
     if (neighbors === 3 || neighbors === 6) {
       return 1;
@@ -41,3 +45,5 @@ export const highLife: Variation = {
     }
   `,
 };
+
+export const AllVariations = [classic, highLife];

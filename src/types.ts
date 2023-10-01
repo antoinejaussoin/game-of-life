@@ -5,6 +5,8 @@ export type Board = Row[];
 export type WebGlBoard = Uint8Array;
 
 export interface Variation {
+  name: string;
+  description: string;
   js: (neighbours: number) => number;
   webGl: string;
 }
