@@ -43,6 +43,7 @@ export interface Engine {
 
 export type Scenario = {
   name: string;
+  description: string;
   init: (engine: Engine) => void;
 };
 
