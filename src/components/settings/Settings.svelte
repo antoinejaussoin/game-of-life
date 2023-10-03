@@ -42,7 +42,7 @@
   }
 </script>
 
-<div class="flex md-5 border-1 shadow-lg mb-8 space-x-5 p-5 items-center">
+<div class="flex md-5 border-1 shadow-lg mb-2 space-x-5 p-5 items-center">
   <EnginePicker bind:engine={$engineType} />
   <VariationPicker bind:variation={$variation} />
   <ScenarioPicker bind:scenario={$scenario} />

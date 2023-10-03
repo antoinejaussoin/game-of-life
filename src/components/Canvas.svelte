@@ -8,9 +8,11 @@
     engine,
     pixelPerSecond,
     scenario,
+    currentShape,
   } from "../stores/store";
   import { relMouseCoords } from "./utils";
   import numeral from "numeral";
+  import ShapeSelector from "./shapes/ShapeSelector.svelte";
 
   let boardWebGl: HTMLCanvasElement;
   let board2d: HTMLCanvasElement;
@@ -40,7 +42,11 @@
       e,
       $engine.type === "webgl" ? boardWebGl : board2d
     );
-    $engine.inject(coords.x, coords.y, [[1]]);
+    $engine.inject(
+      coords.x,
+      coords.y,
+      $currentShape ? $currentShape.shape : [[1]]
+    );
     $engine.draw();
   }
 
@@ -69,29 +75,37 @@
 </script>
 
 <div class="flex flex-col h-full justify-center">
-  <div class="self-center m-4 mb-7 text-3xl">
-    <div class="font-mono">
-      <span class="font-bold">Generation</span>: {$generation}<span class="px-5"
-        >|</span
-      >{numeral($pixelPerSecond).format("0.0a")}&nbsp;<span class="font-bold"
-        >pixel/second</span
-      >
+  <div class="flex">
+    <div class="flex-1">
+      <ShapeSelector />
     </div>
+    <div class="">
+      <div class="self-center m-4 mb-7 text-3xl">
+        <div class="font-mono">
+          <span class="font-bold">Generation</span>: {$generation}<span
+            class="px-5">|</span
+          >{numeral($pixelPerSecond).format("0.0a")}&nbsp;<span
+            class="font-bold">pixel/second</span
+          >
+        </div>
+      </div>
+      <canvas
+        class="self-center h-screen"
+        bind:this={boardWebGl}
+        class:pixelated={$pixelated}
+        class:hidden={$engine.type !== "webgl"}
+        on:click={handleCanvasClick}
+      />
+      <canvas
+        class="self-center h-screen"
+        bind:this={board2d}
+        class:pixelated={$pixelated}
+        class:hidden={$engine.type !== "2d"}
+        on:click={handleCanvasClick}
+      />
+    </div>
+    <div class="flex-1" />
   </div>
-  <canvas
-    class="self-center h-screen"
-    bind:this={boardWebGl}
-    class:pixelated={$pixelated}
-    class:hidden={$engine.type !== "webgl"}
-    on:click={handleCanvasClick}
-  />
-  <canvas
-    class="self-center h-screen"
-    bind:this={board2d}
-    class:pixelated={$pixelated}
-    class:hidden={$engine.type !== "2d"}
-    on:click={handleCanvasClick}
-  />
 </div>
 
 <style>
