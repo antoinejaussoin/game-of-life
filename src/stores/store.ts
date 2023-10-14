@@ -6,6 +6,7 @@ import WebGlEngine from "../engines/webgl/webgl-engine";
 import BlackAndWhiteEngine from "../engines/2d/bw-engine";
 import ColorEngine from "../engines/2d/color-engine";
 import { random } from "../engines/scenarios";
+import type { ShapePreset } from "../types";
 
 export const playing = writable(false);
 export const generation = writable(0);
@@ -17,6 +18,7 @@ export const fps = writable(60);
 export const engineType = writable(engines.find((e) => e.id === "webgl-color"));
 export const variation = writable(classic);
 export const scenario = writable(random);
+export const currentShape = writable<ShapePreset | null>(null);
 
 export const size = derived(sizePower, ($sizePower) => Math.pow(2, $sizePower));
 export const pixelPerSecond = derived(

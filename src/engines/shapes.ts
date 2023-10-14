@@ -27,6 +27,16 @@ export function blank(width: number, height: number): Board {
   return grid;
 }
 
+export const oneAliveCell: ShapePreset = {
+  name: "One Alive Cell",
+  shape: [[1]],
+};
+
+export const oneDeadCell: ShapePreset = {
+  name: "One Dead Cell",
+  shape: [[0]],
+};
+
 export const gosperGliderGun: ShapePreset = {
   name: "Gosper Glider Gun",
   shape: [
@@ -252,6 +262,8 @@ export function addMargins(size: number) {
 }
 
 export default [
+  oneAliveCell,
+  oneDeadCell,
   gosperGliderGun,
   blockLayingSwitch,
   blockLayingSwitch2,
