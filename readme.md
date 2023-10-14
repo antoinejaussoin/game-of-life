@@ -34,6 +34,10 @@ http://www.radicaleye.com/lifepage/picgloss/picgloss.html
 
 # Changelog
 
+## 3.3.0
+
+- Ability to select shapes and draw them on the grid
+
 ## 3.2.0
 
 - Ability to choose a starting scenario
